@@ -23,13 +23,13 @@
 8. 进度调节
 9. 其中7,8基于html5 audio控件重写
 
-###预计添加功能：
+### 预计添加功能：
 1. 播放页面
 2. 歌词同步
 3. 主题切换
 4. 滑动至底部加载
 
-###遇到的问题
+### 遇到的问题
 1. 父子组件之间的通信(emit)
 2. 数据获取异步渲染([vue-router-数据获取](https://router.vuejs.org/zh-cn/advanced/data-fetching.html))
 3. keep-alive会对localstorage造成影响=>有选择性的keep-alive不同router-view([github issue](https://github.com/vuejs/vue-router/issues/811)或者[点击这里](https://segmentfault.com/a/1190000008123035))
@@ -41,12 +41,12 @@
 8. h5播放控件的重写
 
 
-###还未解决的问题
+### 还未解决的问题
 1. 布置到服务器后路由刷新会报404错误,vue-router官方文档中有解决办法,还没深入研究
 2. 如何更优雅的编写vue项目,自己第一次写vue,很多地方都是想怎么写就怎么写，很多问题都没有考虑，甚至很多地方自己都觉得很"脏",真的很惭愧,希望有同学可以指点一二.
 3. 交互和UI太丑...
 
-###关于api
+### 关于api
 特别谢谢我的室友.
 1. 轮播图、热门歌单、榜单是通过爬虫获取.
 2. 音乐直链是通过伪造客户端请求加解密网易云音乐官方api获取数据.
