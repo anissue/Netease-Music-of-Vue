@@ -55,6 +55,6 @@
 
 如有错误之处或者是做得不好可以改进的地方一定要指出来,谢谢谢谢,共同进步.
 
-[如果您觉得对您的学习有所帮助,欢迎去github给我一颗star](https://github.com/hackerwen/SoulBeats-Online)
+如果您觉得对您的学习有所帮助,欢迎给我一颗star
 
 [SoulBeats播放器本地版，配置json播放歌曲](http://www.jianshu.com/p/6e18347c3ae2)
