@@ -56,6 +56,7 @@
         searchRes: null,
         showBtn: false,
         index: 0,
+        favoSong:[]
       }
     },
     created(){

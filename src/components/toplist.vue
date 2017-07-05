@@ -18,10 +18,12 @@
     data(){
       return {
         toplists: null,
+        favoSong:[]
       }
     },
     created(){
       this.fetchData();
+      this.searchLocal();
     },
     methods: {
       fetchData(){

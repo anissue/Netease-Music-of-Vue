@@ -50,6 +50,7 @@
         loading: false,
         error: null,
         localIndex: 0,
+        favoSong:[]
       }
     },
     created(){

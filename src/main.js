@@ -37,6 +37,7 @@ Vue.prototype.addSong = function (song) {
   this.fetchMp3Url(song, "addSong");
 };
 Vue.prototype.favo = function (song) {
+  this.searchLocal();//防止favo组件内部favoSong在删除条目后其他组件内部favoSong未及时得到更新，同步组件的favoSong
   let combinedSong = {
     id: song.id,
     name: song.name,
@@ -47,13 +48,11 @@ Vue.prototype.favo = function (song) {
   let favoSongStr = JSON.stringify(this.favoSong);
   localStorage.setItem('favoSong', favoSongStr);
 };
-Vue.prototype.searchLocal = function () {
+Vue.prototype.searchLocal = function () { //在组件初始化时或者添加收藏歌曲时同步favoSong
   if (localStorage.getItem('favoSong')) {
     this.favoSong = [...JSON.parse(localStorage.getItem('favoSong'))];
   }
 };
-Vue.prototype.favoSong = [];
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -50,6 +50,7 @@
       return {
         artistInfo: null,
         loading: false,
+        favoSong:[]
       }
     },
     created(){
