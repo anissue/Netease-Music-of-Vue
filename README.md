@@ -15,7 +15,7 @@
 ![首页截图.png](http://upload-images.jianshu.io/upload_images/4869616-0cdbf1dcae4a503a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 没有用vuex的原因是这是自己的第一个vue项目,秉承着由难到易的原则,组件间的通信还没写过几次,现在就上手vuex自己心里不舒服.当然以后会用vuex重构.
-###实现功能：
+### 实现功能：
 1. 热门歌单
 2. 本地搜藏
 3. 搜索
