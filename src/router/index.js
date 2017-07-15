@@ -1,68 +1,60 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import home from '../components/home.vue'
-import toplist from '../components/toplist.vue'
-import search from '../components/search.vue'
-import playlist from '../components/playlist.vue'
-import artist from '../components/artist.vue'
-import favo from '../components/favo.vue'
-import topDetail from '../components/top-detail.vue'
 
+import findMusic from '../page/findMusic.vue'
+import recommend from '../page/findmusic/recommend.vue'
+import playlist from '../page/findmusic/playlist.vue'
+import playlistDetail from '../page/playlist-detail.vue'
+import search from '../page/search.vue'
+import searchSong from '../page/search/searchSong.vue'
+import searchArtist from '../page/search/searchArtist.vue'
+import searchPlaylist from '../page/search/searchPlaylist.vue'
+import artist from '../page/artist.vue'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  linkActiveClass: 'active',
   routes: [
+  	{
+  		path:'/',
+  		redirect:'/findMusic',
+  	},
     {
-      path: '/',
-      component: home,
-      meta: {
-          keepAlive: true
-      }
-    },
-    {
-      path: '/favo',
-      component: favo,
-      meta: {
-          keepAlive: false
-      }
-    },
-    {
-      path: '/home',
-      component: home,
-      meta: {
-          keepAlive: true
-      }
-    },
-    {
-      path:'/playlist/:id',
-      component: playlist,
-      meta: {
-          keepAlive: false
-      }
-    },
-    {
-      path: '/toplist',
-      component: toplist,
+      path: '/findMusic',
+      component: findMusic,
       children: [
         {
-          path: '/',
-          redirect: '/topDetail/19723756'
+          path: '/special',
+          component: recommend,
+          meta: {
+            keepAlive: true
+          },
         },
         {
-          path: '/topDetail/:id',
-          component: topDetail,
-        }
+          path: '/',
+          redirect:'/playlist'
+        },
+        {
+          path: '/playlist',
+          component: playlist,
+          meta: {
+            keepAlive: true
+          },
+        },
       ],
-      meta: {
-          keepAlive: true
-      },
     },
     {
-      path: '/search',
-      component: search,
+      path: '/playlistDetail',
+      component: playlistDetail,
       meta: {
-          keepAlive: true
+        keepAlive: false
+      }
+    },
+    {
+      path: '/collectList',
+      component: playlistDetail,
+      meta: {
+        keepAlive: false
       }
     },
     {
@@ -71,6 +63,32 @@ export default new Router({
       meta: {
           keepAlive: false
       }
-    }
-  ]
+    },
+    {
+      path: '/search',
+      component: search,
+      children: [
+        {
+          path: '/search/song',
+          component: searchSong,
+          meta: {
+            keepAlive: false
+          },
+        },
+        {
+          path: 'artist',
+          component: searchArtist,
+          meta: {
+            keepAlive: false
+          },
+        },
+        {
+          path: 'playlist',
+          component: searchPlaylist,
+          meta: {
+            keepAlive: false
+          },
+        },
+      ],
+    },]
 })

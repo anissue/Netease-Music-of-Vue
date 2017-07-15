@@ -1,44 +1,29 @@
 <template>
-  <div id="app" class="mdui-shadow-3">
+  <div id="app">
     <v-header></v-header>
+    <div class="container">
+    <slide-menu></slide-menu>
       <keep-alive>
-          <router-view v-if="$route.meta.keepAlive" id="view"
-                     @nowSong="playNow"
-                     @addSong="pushNow"></router-view>
+          <router-view v-if="$route.meta.keepAlive" id="view"></router-view>
       </keep-alive>
-      <router-view v-if="!$route.meta.keepAlive" id="view"
-                     @nowSong="playNow"
-                     @addSong="pushNow"></router-view>
-      <!-- <router-view id="view"
-                   @nowSong="playNow"
-                   @addSong="pushNow"
-        ></router-view> -->
-    <v-control :addSong="pushSong" :playSong="playSong"></v-control>
+      <router-view v-if="!$route.meta.keepAlive" id="view"></router-view>
+    </div>
+    <v-control></v-control>
   </div>
 </template>
 
 <script type="es6">
-  import vHeader from './components/v-header.vue'
+  import vHeader from './components/header.vue'
   import vControl from './components/v-control.vue'
+  import slideMenu from './components/slide-menu.vue'
   export default {
-    data(){
-      return {
-        pushSong: {},
-        playSong: {}
-      }
-    },
-    methods: {
-      playNow(song){
-        this.playSong = song;
-      },
-      pushNow(song){
-        this.pushSong = song;
-      },
-
+    created(){
+      this.$store.commit('INIT');
     },
     components: {
       vHeader,
-      vControl
+      vControl,
+      slideMenu,
     }
   }
 </script>
@@ -49,18 +34,20 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
-    width: 60%;
-    border: 1px solid #333;
-    margin: 10px auto;
-    //background-color #fff;
   }
-  #view
-    padding: 10px;
-    height: 450px;
-    overflow: auto;
-    color:#000;
-    background-color:rgba(7,27,27,0.1);
-    &::-webkit-scrollbar
-      width: 0;
+  .container
+    display:flex;
+    position:absolute;
+    top:30px;
+    bottom:60px;
+    width:100%;
+    overflow:auto;
+    #view
+      flex:1;
+      box-sizing:border-box;
+      overflow-x: hidden;
+      overflow-y: auto;
+      color:#000;
+      background-color:#fafafc;
+            /*#fafafc;*/
 </style>
