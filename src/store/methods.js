@@ -2,7 +2,7 @@ const manager = {
   handleSong(song){
     let recSong = {
       id: song.id,
-      imgUrl: song.al.picUrl,
+      album: song.al,
       name: song.name,
       artist: song.ar,
     }

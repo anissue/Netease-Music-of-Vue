@@ -65,27 +65,26 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+@import '../common/style/mixin.styl'
 .songs
+  mx_fc(12px,#b0b0b1);
   font-size:12px;
   text-align:left;
   .song
-    display:flex;
-    height:45px;
-    line-height:45px;
-    color:#b0b0b1;
+    mx_flex();
+    mx_hlh(45px,45px);
     .name-section,.artist-section
-      flex:2
-      overflow:hidden;
-      text-overflow:ellipsis;
+      mx_flex_item(2);
+      mx_single_ellipsis();
       &>i
         margin:0 12px;
       .no,.songName
         color:#333333;
     .artist-section
     .songAlbum
-      flex:2;
+      mx_flex_item(2);
     .duration
-      flex:1;
+      mx_flex_item(1);
     &:neh-child(odd)
       background-color:#f4f4f6;
 </style>

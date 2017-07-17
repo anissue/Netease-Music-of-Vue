@@ -9,11 +9,10 @@ export default {
 }
 </script>
 <style lang="stylus">
+@import '../common/style/mixin.styl'
 .loading
-	width:100px;
-	height:100px;
-	margin: 200px auto;
+	mx_wh(100px,100px);
+	margin:200px auto;
 	.loading-img
-		width:100%;
-		height:100%;
+		mx_wh(100%,100%);
 </style>

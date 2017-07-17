@@ -134,21 +134,18 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+@import '../common/style/mixin.styl'
 .slider
-  position relative
-  margin:0 auto
-  width 80%
-  height 185px
+  position:relative;
+  margin:0 auto;
+  mx_wh(80%,185px);
   overflow hidden
   .dots
-    position absolute
-    bottom 0
-    left 50%
+    mx_posbl(0,50%);
     transform translateX(-50%)
     &>span
       display inline-block
-      width:20px
-      height:3px;
+      mx_wh(20px,3px);
       background-color :#fff
       margin-right 3px
       cursor:pointer;
@@ -156,45 +153,35 @@
         background-color red
   #arr
     #right,#left
-      position:absolute;
-      left:0;
-      top:50%;
+      mx_postl(50%,0);
       transform translateY(-50%)
-      width:40px;
-      height:40px;
+      mx_whlh(40px,40px,40px);
+      mx_fc(30px,#fff);
       background:#000;
       cursor:pointer;
-      line-height:40px;
       text-align:center;
       font-weight:bold;
       font-family:'黑体';
-      font-size:30px;
-      color:#fff;
       opacity:0.3;
-      border:1px solid #fff;
+      mx_bd(1px, #fff)
     #right
       right:0;
       left:auto;
   .box
-    position absolute
-    bottom:0
-    height 100%
-    display flex
+    mx_posbl(0,0);
+    height:100%
+    mx_flex();
     align-items:flex-end
     &>li
-      float left
-      height 160px
-      position relative
+      float:left;
+      height:160px;
+      position:relative;
       .mask
-        width:100%;
-        height:100%;
-        position absolute
-        left:0
-        top:0
-        background-color rgba(7,17,27,0.5)
+        mx_wh(100%,100%);
+        mx_postl(0,0);
+        background-color:rgba(7,17,27,0.5);
       &>img
-        width 100%
-        height 100%
+        mx_wh(100%,100%);
       &.active
         height 185px
         transition all .5s

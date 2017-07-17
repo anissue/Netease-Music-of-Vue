@@ -5,11 +5,11 @@
     <!--播放列表结束-->
     <div class="play-wrapper">
       <div class="cover" @click="toggleSong">
-        <img :src="bPlayingSong.imgUrl">
+        <img :src="currentSong.album.picUrl">
         <div class="mask"><i class="icon-enlarge2"></i></div>
       </div>
       <audio ref="music"
-             :src="bPlayingSong.mp3Url"
+             :src="currentSong.mp3Url"
              @canplay="calTtime"
              @timeupdate="changeTime"
         >
@@ -29,9 +29,9 @@
           <div class="top">
             <!--   正在播放的歌曲名以及歌手 开始 -->
             <div class="bPlayingInfo">
-              <span class="name">{{bPlayingSong.name}} - </span>
+              <span class="name">{{currentSong.name}} - </span>
               <span class="singer">
-                <span v-for="artist in bPlayingSong.artist">
+                <span v-for="artist in currentSong.artist">
                   <router-link :to="{path: '/artist/' + artist.id}">{{artist.name + " "}}</router-link>
                 </span>
               </span>
@@ -74,7 +74,35 @@
       </div>
     </div>
     <transition name="slide-fade">
-      <div class="song" v-if="showSong">1</div>
+      <div class="songDetail" v-show="showSong">
+        <div class="bg-blur" ref="bg"></div>
+        <div class="content">
+          <div class="top">
+            <div class="left-cover">
+              <div class="cd-around" :class="{roll:isRoll,stop:!isRoll}">
+                <img :src="currentSong.album.picUrl" alt="">
+              </div>
+            </div>
+            <div class="right-lyric">
+              <div class="info">
+                <p class="name">{{currentSong.name}}</p>
+                <span class="album">专辑：{{currentSong.album.name}}</span>
+					      <span class="songArtists">
+		              <span v-for="artist in currentSong.artist">
+		                歌手：{{artist.name + " "}}
+		              </span>
+		            </span>
+              </div>
+              <div class="lyric">
+                <ul class="lines" ref="lyricBox">
+                  <li class="line" :class="{active:isActive[index]}" v-for="(line,index) in lyric">{{line[1]}}</li>
+                </ul>
+              </div>
+              <p @click="showSong=fasle">关闭</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </transition>
   </div>
 </template>
@@ -94,23 +122,41 @@
         modeFlag: 0,
         songIndex: 0,
         showSong:false,
-        bPlayingSong: {
+        isRoll:false,
+        currentTime:0,
+        lyric:[],
+        isActive:[],
+        currentSong: {
+          id:"28661564",
           mp3Url: 'http://orot63356.bkt.clouddn.com/maps.mp3',
-          imgUrl: 'http://orot63356.bkt.clouddn.com/cover_maps.jpg',
+          album: {
+            "id": 2866276,
+            "name": "Maps",
+            "picUrl": "https://p1.music.126.net/OC3XXrblVQPgXrkZyLaPow==/3394192437682072.jpg",
+            "tns": [],
+            "pic": 3394192437682072
+          },
           name: 'maps',
           artist: [{name: "maroon 5", id: "96266"}],
         },
       }
     },
+    created(){
+      var that = this;
+      Vue.nextTick(function(){
+        that.initWallPaper();
+      });
+      this.fetchLyric();
+    },
     computed: {
       songs(){
         return this.$store.getters.getSongs;
       },
-      nowSong(){
-        return this.$store.getters.getPlayingSong;
-      },
       playFlag(){
         return this.$store.state.playFlag;
+      },
+      bPlayingSong(){
+        return this.$store.state.bPlayingSong;
       }
     },
     mounted(){
@@ -126,6 +172,7 @@
         this.listCircle();
       },
       PlayorPause(){
+        this.isRoll = !this.isRoll;
         if (this.music.paused || this.music.ended) {
           this.toPlay();
         } else {
@@ -160,6 +207,7 @@
         this.Ttime = min + ':' + sec;
       },
       changeTime(){
+        /*改变进度条*/
         let currentTime = this.music.currentTime;
         let scaling = currentTime / this.music.duration;
         let min = parseInt(currentTime / 60);
@@ -169,6 +217,18 @@
         }
         this.Ctime = min + ':' + sec;
         this.progress.style.width = this.progressBar.offsetWidth * scaling + "px";
+        /*歌词同步*/
+        for(let i=0;i<this.lyric.length;i++){
+          if(this.music.currentTime > this.lyric[i][0] - 1){
+            for(let j=0;j<this.isActive.length;j++){
+              this.isActive[j]=0;
+            }
+            this.isActive[i]=1;
+            this.animate(this.$refs.lyricBox,{
+              top:140 - 35 * (i + 1)
+            })
+          }
+        }
       },
       setCtime(e){
         let length = e.offsetX;
@@ -206,28 +266,20 @@
           if (mp3Url == "null") {
             song.name = "该资源暂时无法获取";
           }
-          song.mp3Url = mp3Url;
-          this.bPlayingSong = song;
-          if (!this.music.paused) {//播放情况下切换可以自动播放
-            //console.log("播放情况下切换可以自动播放");
-            this.music.autoplay = true;
-            this.toPlay();
-          }
-
-          if (this.music.currentTime === this.music.duration) {//音乐结束情况下切换可以自动播放
+          this.currentSong.mp3Url=mp3Url;
+          this.currentSong.id = song.id;
+          this.currentSong.album = song.album;
+          this.currentSong.name = song.name;
+          this.currentSong.artist = song.artist
+          this.fetchLyric();
+          this.initWallPaper();
+          if (this.music.currentTime === this.music.duration || !this.music.paused || config.flag === "playNow") {//音乐结束情况下切换可以自动播放
             //console.log("音乐结束情况下切换可以自动播放");
             this.music.autoplay = true;
             this.toPlay();
-          }
-
-          if (this.music.paused) {//暂停状态下切换无法自动播放
-            //console.log("暂停状态下切换无法自动播放");
-            this.music.autoplay = false;
+          }else{
+            this.music.autoplay = false;;
             this.toPause();
-          }
-          if (config.flag === "playNow") {
-            this.music.autoplay = true;
-            this.toPlay();
           }
         }, error => {
           console.log("mp3url error")
@@ -334,14 +386,73 @@
       },
       toggleSong(){
         this.showSong=!this.showSong;
+      },
+      initWallPaper(){
+        this.$refs.bg.style.backgroundImage = "url(" + this.currentSong.album.picUrl + ")";
+      },
+      fetchLyric(){
+        let url = 'https://api.imjad.cn/cloudmusic/?type=lyric&id=' + this.currentSong.id;
+        this.$http.get(url).then(response => {
+          if (response.data.code === 200) {
+            this.lyric = this.parseLyric(response.data.lrc.lyric);
+            for (let i = 0; i < this.lyric.length; i++) {
+              Vue.set(this.isActive, i, 0);
+            }
+            //console.log(this.lyric);
+          } else {
+            console.log("not found lyric");
+          }
+        }, error => {
+          console.log("lyric error");
+        });
+      },
+      parseLyric(text) {
+        //将文本分隔成一行一行，存入数组
+        var lines = text.split('\n');
+        //用于匹配时间的正则表达式，匹配的结果类似[xx:xx.xx]
+        var pattern = /\[\d{2}:\d{2}.\d{1,3}\]/g;
+        //保存最终结果的数组
+        var  result = [];
+        //去掉不含时间的行
+        while (!pattern.test(lines[0])) {
+          lines = lines.slice(1);
+        };
+        //上面用'\n'生成生成数组时，结果中最后一个为空元素，这里将去掉
+        lines[lines.length - 1].length === 0 && lines.pop();
+        for (var i = 0; i < lines.length; i++) {
+          var line = lines[i];
+          var value = line.replace(pattern, '');//提取歌词 将时间清空 返回一个新的字符串
+          var times = line.match(pattern); //返回数组 [时间]，对该数组做处理，将时间转为秒数，同时注意此类情况:多个时间点共享同一句歌词，[时间1，时间2...]
+          times.forEach(function (time) {
+            //去掉时间里的中括号得到xx:xx.xx并用:分割得到[xx,xx.xx]的数组
+            var t = time.slice(1, -1).split(':');
+            //将结果压入最终数组
+            result.push([parseInt(t[0], 10) * 60 + parseFloat(t[1]), value]);//组合成 [时间,歌词]
+            //此处可能多个时间对应同一句歌词，而result.push显然会打乱顺序的，例如第一个时间点和最后一个时间点共享同一句歌词，而此时Push进去他们是相邻的，应按照时间顺序进行排序
+          });
+        }
+        result.sort(function (a, b) {
+          return a[0] - b[0];//加上下标 是为了取出时间 result[0][0]与result[1][0]做比较而不是result[0]与result[1]做比较
+        });
+        return result;
       }
     },
     watch: {
-      playFlag: {
-        handler: function () {
+      playFlag:{
+        handler:function(){
           this.changeSong({index: 0, flag: 'playNow'});
         },
-        deep: true
+        deep:true
+      },
+      bPlayingSong:{
+        handler:function(){
+          if(this.music.paused){
+            this.isRoll=false;
+          }else{
+            this.isRoll=true;
+          }
+        },
+        deep:true
       }
     },
     components: {
@@ -351,141 +462,5 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .wrapper
-    background-color:transparent;
-    width:100%;
-    position:fixed;
-    bottom:0;
-    left:0;
-    z-index:99999;
-    .play-wrapper
-      display: flex;
-      box-sizing:border-box;
-      width:100%;
-      height:60px;
-      border: 1px solid rgba(7,17,27,0.2);
-      .cover
-        width:60px;
-        height: 60px;
-        &>img
-          width:100%;
-          height:100%;
-        .mask
-          position absolute
-          left:0
-          top:0
-          width:60px;
-          height:60px;
-          line-height:60px;
-          font-size:25px;
-          color:white;
-          background-color rgba(7,17,27,0.5);
-          opacity:0;
-        &:hover
-          .mask
-            opacity:1;
-            transition:all 0.5s;            
-      .detail
-        box-sizing: border-box;
-        width:100%;
-        flex:1;
-        display:flex;
-        .ply
-          flex:1
-          padding-left:15px;
-          padding-top:14px;
-          overflow:hidden;
-          .preSongBtn,.nextSongBtn,.ply-btn
-            float:left;
-            width: 32px;
-            height:32px;
-            background-color:#df3b3b;
-            &>i
-              color:#fff;
-              font-size:15px;
-          .nextSongBtn,.ply-btn
-            margin-left:20px;
-        .controls
-          flex:4
-          box-sizing:border-box;
-          text-align:left;
-          flex-direction:column;
-          .top
-            height:30px;
-            line-height:30px;
-            font-size:12px;
-            .bPlayingInfo
-              float:left;
-            .time
-              float:right;
-              marging-right:30px;
-          .bottom
-            display:flex;
-            height:30px;
-            .progressBar
-              flex:3;
-              height:4px;
-              margin-top:10px;
-              border-radius: 10px;
-              background-color:#e5e5e5;
-              cursor:pointer;
-              .progress
-                display: block;
-                width:0;
-                height: 6px;
-                background-color: #df3b3b;
-                border-radius: 6px;
-            .volLine
-              flex:1;
-              display:flex;
-              padding-left:30px;
-              cursor:pointer;
-              .noVol
-                width:30px;
-                height:30px;
-              .vol
-                flex:1;
-                height:6px;
-                margin-top:10px;
-                background-color:#e5e5e5;
-                border-radius: 6px;
-                .nowVol
-                   display: block;
-                   width:50%;
-                   height: 4px;
-                   background-color: #df3b3b;
-                   border-radius: 4px;
-        .mode
-          flex:1
-          display:flex;
-          &>span
-            display:block;
-            flex:1;
-            color:#999999;
-            line-height:60px;
-            font-size: 15px;
-            text-align: center;
-            cursor: pointer;
-    .song
-      position:fixed;
-      top:30px;
-      bottom:60px;
-      width:100%;
-      overflow:auto;
-      background-color:black;
-      
-
-/* 可以设置不同的进入和离开动画 */
-/* 设置持续时间和动画函数 */
-.slide-fade-enter-active {
-  transition: all .3s ease;
-}
-.slide-fade-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active for <2.1.8 */ {
-  transform: translateX(50px);
-  opacity: 0;
-}
+@import './v-control';
 </style>

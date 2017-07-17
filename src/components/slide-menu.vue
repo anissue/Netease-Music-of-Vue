@@ -86,35 +86,31 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+@import '../common/style/mixin.styl'
 .slideMenu
     width:15%;
     overflow:auto;
     text-align:left;
+    mx_fc(14px,#bfbfc0);
     background-color #f3f3f5;
     &>i
+      mx_hlh(45px,45px);
       margin-left:10px;
-      height:45px;
-      line-height :45px;
       font-size:15px;
       cursor:pointer;
     .content
       &>h4
         margin-left:10px;
-        height:45px;
-        line-height :45px;
-        font-size:13px;
-        color:#bfbfc0;
+        mx_hlh(45px,45px);
       .links
         &>li
-          box-sizing:border-box;
+          mx_brbox();
           height:40px;
           padding-left:12px;
-          font-size :14px;
           &>a
             display:block;
-            height:40px;
-            line-height 40px
-            color:#000;
+            mx_fc(14px,#000);
+            mx_hlh(40px,40px);
             &>i
               display:inline-block;
               margin-right:15px;
@@ -127,24 +123,18 @@
         &>li
           position:relative;
           .icon-cross
+            mx_postr(3px,14px);
             display:none;
-            position:absolute
-            right:3px;
-            top:14px;
             font-size:12px;
-            bottom:0;
           &>a
             &>span
-              display inline-block
-              height:40px;
-              width:70%;
-              vertical-align top
-              overflow: hidden;
-              text-overflow:ellipsis;
-              white-space: nowrap;
+              mx_wh(70%,40px);
+              mx_single_ellipsis();
+              display:inline-block;
+              vertical-align:top;
+              mx_fc(14px,#000);
             &>img
-              width:35px;
-              height 35px;
+              mx_wh(35px,35px);
               margin-right:5px;
             &.active
               color:#000;

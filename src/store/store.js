@@ -5,9 +5,32 @@ import manager from './methods'
 Vue.use(Vuex)
 
 const state = { //需要共享的数据
-  songs: [],//歌曲列表
-  bPlayingSong: {},//正在播放的歌曲
-  playFlag: 0,//当这个flag变化时立刻播放列表第一首歌曲并设置当前歌曲
+  songs: [{
+          id:"28661564",
+          mp3Url: 'http://orot63356.bkt.clouddn.com/maps.mp3',
+          album: {
+            "id": 2866276,
+            "name": "Maps",
+            "picUrl": "https://p1.music.126.net/OC3XXrblVQPgXrkZyLaPow==/3394192437682072.jpg",
+            "tns": [],
+            "pic": 3394192437682072
+          },
+          name: 'maps',
+          artist: [{name: "maroon 5", id: "96266"}],
+        }],//歌曲列表
+  bPlayingSong: {
+    id:"28661564",
+    album: {
+      "id": 2866276,
+      "name": "Maps",
+      "picUrl": "https://p1.music.126.net/OC3XXrblVQPgXrkZyLaPow==/3394192437682072.jpg",
+      "tns": [],
+      "pic": 3394192437682072
+    },
+    name: 'maps',
+    artist: [{name: "maroon 5", id: "96266"}],
+  },//正在播放的歌曲
+  playFlag: 0,//当这个flag变化时立刻播放列表第一首歌曲并设置当前歌曲,只有在歌曲列表里点击播放时才会出发，上一曲下一曲列表选中均不会触发
   collectList: [],//收藏的歌单
   scrollPosition: 0,//记录findMusic组件滚动位置 后退时保证上一次滚动状态
 }

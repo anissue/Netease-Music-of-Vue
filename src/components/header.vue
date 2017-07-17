@@ -23,15 +23,14 @@
 </script>
 
 <style lang="stylus">
+@import '../common/style/mixin.styl'
 	.header
-		box-sizing:border-box;
+		mx_brbox();
+		mx_fc(14px,#fff);
+		mx_hlh(30px,30px);
 		overflow:hidden;
-		height:30px;
-		font-size :14px;
-		line-height:30px;
 		padding:0 20px;
 		background-color #bc2f2e;
-		color:#fff;
 		cursor:default;
 		.left
 			float:left;

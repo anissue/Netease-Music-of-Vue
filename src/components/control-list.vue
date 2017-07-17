@@ -49,49 +49,43 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+@import '../common/style/mixin.styl'
 .controlList
+  mx_pofbr(50px,0);
+  mx_wh(475px,430px);
   background-color:#fff;
-  float:right;
-  position:absolute;
-  bottom:50px;
-  right:0;
-  width:475px;
-  height:430px;
+  z-index:999;
   font-size:12px;
   text-align:left;
   border: 1px solid rgba(7,17,27,0.1);
   overflow:auto;
   .head
-    display:flex;
-    height:40px;
-    line-height:40px;
+    mx_flex();
+    mx_hlh(40px,40px);
     font-size:14px;
     border-bottom:1px solid rgba(7,17,27,0.2);
     &>div
       cursor:default;
     .head-one
-      flex:3;
+      mx_flex_item(3);
       padding-left:30px;
     .head-two
-      flex:2;
+      mx_flex_item(2);
     .head-three
-      flex:1;
+      mx_flex_item(1);
   &>li
-    display:flex;
+    mx_flex();
+    mx_hlh(45px,45px);
     padding:0 30px;
-    height:45px;
-    line-height:45px;
     .songName
-      flex:3;
+      mx_flex_item(3);
+      mx_single_ellipsis();
       cursor:pointer;
-      overflow:hidden;
-      text-overflow:ellipsis;
     .songSinger
-      flex:2;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      mx_flex_item(2);
+      mx_single_ellipsis();
     .deleteSong
-      flex:1;
+      mx_flex_item(1);
       color:#b7b7b8;
     &:hover
       background-color :#e8e8eb;
@@ -104,13 +98,10 @@
           &>a
             color:#df3b3b;
     &.active:before
-      position: absolute;
-      left: 0;
-      top:50%;
+      mx_wh(3px,30px);
+      mx_postl(50%,0);
       transform: translate(0,-50%);
       display: block;
       content:"";
       background-color: #df3b3b;
-      height:30px;
-      width: 3px;
 </style>

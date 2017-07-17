@@ -5,3 +5,13 @@ button{border:none;border-radius:50%;background-color:#fff;cursor:pointer;}
 button>i{color:#333;}
 i{cursor:pointer;}
 *::-webkit-scrollbar {display:none}
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .3s ease;
+}
+.slide-fade-enter, .slide-fade-leave-to{
+  transform: scale(0.9,0.9);
+  opacity: 0;
+}
