@@ -1,15 +1,15 @@
 # SoulBeats音乐播放器
 
-> 基于vue的SPA(sing page application)单页面应用,PC端
-> 技术栈:vue+vue-router+axios+mdui+stylus
-> [点击预览](http://112.74.202.2) 请务必配合chrome桌面端进行食用
-> [前往github](https://github.com/hackerwen/SoulBeats-Online)
+> 基于vue的SPA单页面应用,PC端,UI基本对着网易切...
+> 技术栈:vue+vue-router+axios+stylus
+> [点击预览](http://blog.hackerwen.tech/SoulBeats-Online/#/playlist) 请务必配合chrome桌面端进行食用
+> [前往github](https://github.com/hackerwen/SoulBeats-Online/tree/master)
 
 1. Vue-router实现路由切换.
 2. axios发送http请求.
-3. mdui作界面ui.
-4. stylus作css预处理.
-5. 初始化数据通过html5提供的localstorage.
+3. stylus作css预处理.
+4. 初始化数据通过html5提供的localstorage.
+5. api来源(爬虫+[戳这里](https://api.imjad.cn/))
 
 
 ![首页截图.png](http://upload-images.jianshu.io/upload_images/4869616-0cdbf1dcae4a503a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
