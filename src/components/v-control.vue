@@ -66,7 +66,7 @@
         </div>
         <!--菜单开始-->
         <div class="mode">
-          <span class="favo icon-heart"></span>
+          <span class="icon-heart"></span>
           <span class="playMode" @click="changeMode" :class="mIconFlag"></span>
           <span class="menu icon-list" @click="toggleList"></span>
         </div>
@@ -98,7 +98,7 @@
                   <li class="line" :class="{active:isActive[index]}" v-for="(line,index) in lyric">{{line[1]}}</li>
                 </ul>
               </div>
-              <p @click="showSong=fasle">关闭</p>
+              <p @click="showSong=0">关闭</p>
             </div>
           </div>
         </div>
@@ -172,7 +172,6 @@
         this.listCircle();
       },
       PlayorPause(){
-        this.isRoll = !this.isRoll;
         if (this.music.paused || this.music.ended) {
           this.toPlay();
         } else {
@@ -180,10 +179,12 @@
         }
       },
       toPlay(){
+        this.isRoll = true;
         this.music.play();
         this.pIconFlag = 'icon-pause2';
       },
       toPause(){
+        this.isRoll = false;
         this.music.pause();
         this.pIconFlag = 'icon-play3';
       },
@@ -394,11 +395,16 @@
         let url = 'https://api.imjad.cn/cloudmusic/?type=lyric&id=' + this.currentSong.id;
         this.$http.get(url).then(response => {
           if (response.data.code === 200) {
-            this.lyric = this.parseLyric(response.data.lrc.lyric);
-            for (let i = 0; i < this.lyric.length; i++) {
-              Vue.set(this.isActive, i, 0);
+            if(response.data.sgc){
+              this.lyric = this.parseLyric(response.data.lrc.lyric);
+              for (let i = 0; i < this.lyric.length; i++) {
+                Vue.set(this.isActive, i, 0);
+              }
+            }else{
+              this.lyric=[[0.00,"该歌曲暂无歌词"]];
+              console.log("该歌曲暂无歌词");
+              //console.log(this.lyric);
             }
-            //console.log(this.lyric);
           } else {
             console.log("not found lyric");
           }

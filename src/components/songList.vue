@@ -3,7 +3,7 @@
     <li class="song" v-for="(song,index) in songs">
       <div class="name-section">
         <span class="no" v-show="noFlag">{{specIndex(index)}}</span>
-        <i class="icon-heart"></i>
+        <i class="icon-heart" v-show="favoFlag" @click="favoSong(song)"></i>
         <span class="songName">{{song.name}}</span>
       </div>
 
@@ -18,6 +18,10 @@
       </div>
       <div class="songAlbum">{{song.al.name}}</div>
       <div class="duration" v-show="dtFlag">{{duration(song.dt)}}</div>
+      <div v-show="delFlag">
+        <i class="deleteSong icon-cross"
+           @click="unfavoSong(song)"></i>
+      </div>
     </li>
   </ul>
 </template>
@@ -35,7 +39,15 @@
       dtFlag:{
         type:Boolean,
         default:true,
-      }
+      },
+      favoFlag:{
+        type:Boolean,
+        default:true,
+      },
+      delFlag:{
+        type:Boolean,
+        default:false,
+      },
     },
     methods: {
       duration(ms){
@@ -59,6 +71,12 @@
       },
       addSong(song){
         this.$store.dispatch('addSong', song);
+      },
+      favoSong(song){
+        this.$store.dispatch('collectFavoSong', song);
+      },
+      unfavoSong(song){
+        this.$store.dispatch('deleteFavoSong', song);
       }
     }
   }

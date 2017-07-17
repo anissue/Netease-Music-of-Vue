@@ -32,6 +32,7 @@ const state = { //需要共享的数据
   },//正在播放的歌曲
   playFlag: 0,//当这个flag变化时立刻播放列表第一首歌曲并设置当前歌曲,只有在歌曲列表里点击播放时才会出发，上一曲下一曲列表选中均不会触发
   collectList: [],//收藏的歌单
+  favoSongs:[],//我喜欢的歌曲
   scrollPosition: 0,//记录findMusic组件滚动位置 后退时保证上一次滚动状态
 }
 
@@ -42,6 +43,11 @@ const mutations = {
       state.collectList = [...JSON.parse(localStorage.getItem('localList'))];
     } else {
       state.collectList = [];
+    }
+    if (localStorage.getItem('localSongs')) {
+      state.favoSongs = [...JSON.parse(localStorage.getItem('localSongs'))];
+    } else {
+      state.favoSongs = [];
     }
   },
   /*单曲部分*/
@@ -89,6 +95,22 @@ const mutations = {
     }
     manager.setLocalList(state.collectList);
   },
+  /*我喜欢的歌曲*/
+  COLLECT_FAVOSONG(state, song){
+    state.favoSongs.push(song);
+    state.favoSongs = manager.unique(state.favoSongs);//去重,不允许重复收藏歌曲
+    manager.setLocalSongs(state.favoSongs);
+  },
+  DELETE_FAVOSONG(state, song){
+    for (let i = 0; i < state.favoSongs.length; i++) {
+      let list = state.favoSongs[i];
+      if (list == song) {
+        state.favoSongs.splice(i, 1);
+      }
+    }
+    manager.setLocalSongs(state.favoSongs);
+  },
+  /*记录滚动位置*/
   SET_SCROLLPOSITION(state, position){
     state.scrollPosition = position;
   }
@@ -123,6 +145,12 @@ const actions = {
   },
   deleteList({commit}, playlist){
     commit('DELETE_LIST', playlist);
+  },
+  collectFavoSong({commit}, song){
+    commit('COLLECT_FAVOSONG', song);
+  },
+  deleteFavoSong({commit}, song){
+    commit('DELETE_FAVOSONG', song);
   },
   setScrollPosition({commit}, position){
     commit('SET_SCROLLPOSITION', position);

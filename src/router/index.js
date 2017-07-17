@@ -10,6 +10,8 @@ import searchSong from '../page/search/searchSong.vue'
 import searchArtist from '../page/search/searchArtist.vue'
 import searchPlaylist from '../page/search/searchPlaylist.vue'
 import artist from '../page/artist.vue'
+import toplist from '../page/toplist.vue'
+import favo from '../page/favo.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -53,6 +55,20 @@ export default new Router({
     {
       path: '/collectList',
       component: playlistDetail,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/toplist',
+      component: toplist,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/favo',
+      component: favo,
       meta: {
         keepAlive: false
       }

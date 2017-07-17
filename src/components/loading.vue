@@ -1,7 +1,8 @@
 <template>
-	<div class="loading">
-		<img class="loading-img" src="/static/loading.gif">
-	</div>
+<div class="loading">
+	 <i class="icon-spinner10"></i>
+</div>
+   
 </template>
 <script>
 export default {
@@ -11,8 +12,15 @@ export default {
 <style lang="stylus">
 @import '../common/style/mixin.styl'
 .loading
-	mx_wh(100px,100px);
-	margin:200px auto;
-	.loading-img
-		mx_wh(100%,100%);
+	margin:0 auto;
+	margin-top:50px;
+	width:30px;
+	height:30px;
+	background-color #fafafc;
+	animation: roll 4s  linear infinite;
+	position:relative;
+	.icon-spinner10
+		mx_posc();
+		font-size:30px;
+		color:#df3b3b;
 </style>

@@ -11,34 +11,34 @@
           <router-link to="/findMusic"><i class="icon-music"></i><span>发现音乐</span></router-link>
         </li>
         <li>
-          <router-link to="#"><i class="icon-video-camera"></i><span>MV</span></router-link>
+          <router-link to="/toplist"><i class="icon-star-full"></i><span>排行榜</span></router-link>
         </li>
         <li>
           <router-link to="/about"><i class="icon-users"></i><span>关于</span></router-link>
         </li>
       </ul>
 
-      <h4>我的音乐</h4>
+      <h5>我的音乐</h5>
       <ul class="links">
         <li>
-          <router-link to="#"><i class="icon-headphones"></i><span>本地音乐</span></router-link>
+          <router-link to="/localmusic"><i class="icon-headphones"></i><span>本地音乐</span></router-link>
         </li>
         <li>
-          <router-link to="#"><i class="icon-download2"></i><span>下载管理</span></router-link>
+          <router-link to="/download"><i class="icon-download2"></i><span>下载管理</span></router-link>
         </li>
         <li>
           <router-link to="/recent"><i class="icon-clock"></i><span>最近播放</span></router-link>
         </li>
       </ul>
 
-      <h4>创建的歌单</h4>
+      <h5>创建的歌单</h5>
       <ul class="links">
         <li>
-          <router-link to="favo"><i class="icon-heart"></i><span>我喜欢的音乐</span></router-link>
+          <router-link to="/favo"><i class="icon-heart"></i><span>我喜欢的音乐</span></router-link>
         </li>
       </ul>
 
-      <h4>收藏的歌单</h4>
+      <h5>收藏的歌单</h5>
       <ul class="collectList links">
         <li v-for="playlist in collectList">
           <router-link :to="{path: 'collectList' , query:{id:playlist.id}}">
@@ -99,7 +99,7 @@
       font-size:15px;
       cursor:pointer;
     .content
-      &>h4
+      &>h5
         margin-left:10px;
         mx_hlh(45px,45px);
       .links

@@ -34,9 +34,10 @@ export default{
 </script>
 
 <style lang="stylus">
+@import '../common/style/mixin.styl'
 .findMusic
+  mx_pagepadding();
   position:relative;
-  padding:20px 30px;
   .children
     position:absolute;
     width:95%;
@@ -44,9 +45,6 @@ export default{
     top:100px;
     bottom:0;
     overflow:auto;
-  &>h4
-    float:left;
-    font-size :10px;
 	.nav
 		position:absolute;
 		left:30px;

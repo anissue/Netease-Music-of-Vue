@@ -70,10 +70,6 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .loading
-    width:100%;
-    height:100%;
-    background-color:#353535;
   .playlists
     display:flex;
     flex-wrap:wrap;

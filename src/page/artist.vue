@@ -1,6 +1,6 @@
 <template>
   <div class="artistInfo">
-    <loading v-if="loading"></loading>>
+    <loading v-if="loading"></loading>
 
     <h4>歌手</h4>
 
@@ -72,10 +72,9 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+@import '../common/style/mixin.styl'
 .artistInfo
-  text-align:left;
-  padding:20px 30px;
-  font-size :12px;
+  mx_pagepadding();
   .bg
     position:absolute;
     top:0;
@@ -85,9 +84,6 @@
     z-index:1;
     filter:blur(30px);
     opacity:0.2;
-  &>h4
-      color:#666666;
-      margin-bottom:20px;
   .info
     display:flex;
     margin-bottom:20px;

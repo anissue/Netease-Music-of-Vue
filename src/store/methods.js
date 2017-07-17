@@ -23,6 +23,10 @@ const manager = {
     let localList = JSON.stringify(list);
     localStorage.setItem('localList', localList);
   },
+  setLocalSongs(songs){
+    let localSongs = JSON.stringify(songs);
+    localStorage.setItem('localSongs', localSongs);
+  },
 }
 
 export default manager;

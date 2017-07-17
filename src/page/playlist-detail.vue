@@ -150,15 +150,11 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+@import '../common/style/mixin.styl'
   .playlist-detail
-    padding:20px 30px;
-    font-size:12px;
-    text-align:left;
+    mx_pagepadding();
     position:relative;
     .list
-      &>h4
-        color:#666666;
-        margin-bottom:20px;
       .info
         display:flex;
         margin-bottom:20px;
