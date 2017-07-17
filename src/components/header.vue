@@ -2,7 +2,7 @@
   <div class="header">
     <div class="left">
       <i class="icon-arrow-left" @click="goBackForward"></i>
-      <h4 class="title">SoulBeats</h4>
+      <h2 class="title">SoulBeats</h2>
     </div>
     <div class="right">
       <i></i>
@@ -36,7 +36,7 @@
 			float:left;
 			&>i
 				cursor:pointer;
-			&>h4
+			&>h2
 				display:inline-block;
 				margin-left:30px;
 		.right
