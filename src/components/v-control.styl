@@ -1,0 +1,184 @@
+@import '../common/style/mixin'
+  .wrapper
+    background-color:transparent;
+    mx_wh(100%,60px);
+    mx_pofbl(0,0);
+    z-index:99999;
+    .play-wrapper
+      mx_flex();
+      mx_brbox();
+      mx_wh(100%,100%);
+      mx_bd(1px,rgba(7,17,27,0.2))
+      .cover
+        mx_wh(60px,60px);
+        &>img
+          mx_wh(100%,100%);
+        .mask
+          mx_postl(0,0);
+          mx_whlh(60px,60px,60px)
+          mx_fc(25px,#fff);
+          background-color:rgba(7,17,27,0.5);
+          opacity:0;
+        &:hover
+          .mask
+            opacity:1;
+            transition:all 0.5s;
+      .detail
+        mx_brbox();
+        width:100%;
+        mx_flex_item(1);
+        mx_flex();
+        .ply
+          width:170px;
+          padding-left:15px;
+          padding-top:14px;
+          overflow:hidden;
+          .preSongBtn,.nextSongBtn,.ply-btn
+            float:left;
+            mx_wh(32px,32px);
+            background-color:#df3b3b;
+            &>i
+              mx_fc(15px,#fff);
+          .nextSongBtn,.ply-btn
+            margin-left:20px;
+        .controls
+          mx_flex_item(4);
+          mx_flex();
+          text-align:left;
+          flex-direction:column;
+          .top
+            mx_hlh(30px,30px);
+            font-size:12px;
+            .bPlayingInfo
+              float:left;
+            .time
+              float:right;
+              marging-right:30px;
+          .bottom
+            mx_flex();
+            height:30px;
+            .progressBar
+              mx_flex_item(3);
+              height:6px;
+              margin-top:10px;
+              border-radius: 10px;
+              background-color:#e5e5e5;
+              cursor:pointer;
+              .progress
+                display: block;
+                mx_wh(0,6px);
+                background-color: #df3b3b;
+                border-radius: 6px;
+            .volLine
+              mx_flex_item(1);
+              mx_flex();
+              padding-left:30px;
+              cursor:pointer;
+              .noVol
+                mx_wh(30px,30px);
+              .vol
+                mx_flex_item(1);
+                height:6px;
+                margin-top:10px;
+                background-color:#e5e5e5;
+                border-radius: 6px;
+                .nowVol
+                   display: block;
+                   mx_wh(50%,4px);
+                   background-color: #df3b3b;
+                   border-radius: 4px;
+        .mode
+          mx_flex_item(1);
+          mx_flex();
+          &>span
+            display:block;
+            mx_flex_item(1);
+            mx_fc(15px,#999999);
+            line-height:60px;
+            text-align: center;
+            cursor: pointer;
+    .songDetail
+      mx_poftb(30px,60px);
+      width:100%;
+      overflow:auto;
+      background-color:#dddddc;
+      text-align:left;
+      .bg-blur
+        mx_wh(100%,480px);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        -webkit-filter: blur(100px);
+        -moz-filter: blur(100px);
+        -o-filter: blur(100px);
+        -ms-filter: blur(100px);
+        filter: blur(100px);
+      .content
+        mx_postl(0,0);
+        width:100%;
+        .top
+          height:480px;
+          overflow:hidden;
+          display:flex;
+          .left-cover
+            flex:1.5;
+            height:480px;
+            position:relative;
+            .cd-around
+              mx_postr(40px,90px);
+              mx_wh(310px,310px);
+              border:5px solid rgba(7,17,27,0.4);
+              border-radius:50%;
+              overflow:hidden;
+              background-image: -webkit-radial-gradient(rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.9) 3%);
+              background-image:repeating-radial-gradient(rgba(11,11,11,11.8) 0%,rgba(0,0,0,0.9) 3%);
+              mx_flex_mid();
+              &>img
+                mx_wh(190px,190px);
+                margin:0 0 0 0;
+                border-radius:50%;
+              &.roll
+                animation: roll 16s  linear infinite;
+              &.stop
+                animation: roll 16s  linear infinite;
+                animation-play-state: paused;
+          .right-lyric
+            height:480px;
+            position:relative;
+            flex:1.6;
+            &>p
+              mx_postr(10px,10px);
+              color:white;
+              font-size: 12px;
+              cursor:pointer;
+            .info
+              mx_postl(30px,20px);
+              font-size:12px;
+              .name
+                font-size:22px;
+                margin-bottom:10px;
+              .album
+                margin-right:25px;
+            .lyric
+              mx_postl(100px,20px);
+              mx_wh(100%,300px);
+              overflow:hidden;
+              .lines
+                mx_postl(140px,0);
+                .line
+                  mx_hlh(35px,35px);
+                  font-size:14px;
+                  letter-spacing:.1em;
+                  &.line.active
+                    color: #ffe358;
+
+
+@keyframes roll{
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}
+
