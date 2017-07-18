@@ -14,17 +14,17 @@
                 <span class="no">{{index+1}}.</span>
                 <span class="name">{{song.name}} - </span>
                 <span class="songArtists">
-                  <span v-for="artist in song.ar">
-                    <router-link :to="{path: '/artist/' + artist.id}">{{artist.name + " "}}</router-link>
-                  </span>
+                    <span v-for="artist in song.ar">
+                      <router-link :to="{path: '/artist/' + artist.id}">{{artist.name + " "}}</router-link>
+                    </span>
                 </span>
               </li>
             </ul>
           </router-link>
         </li>
       </ul>
-     <!-- 第三方榜-->
-     <h3>全球榜</h3>
+      <!-- 第三方榜-->
+      <h3>全球榜</h3>
       <ul class="global">
         <li v-for="toplist in global">
           <router-link :to="{path: '/playlistDetail' ,query:{id: toplist.id}}">
@@ -40,26 +40,26 @@
 <script type="es6">
   import loading from '../components/loading.vue'
   export default {
-    data(){
+    data() {
       return {
-        toplists:null,
-        neteaseSpec:[],
-        global:[],
+        toplists: null,
+        neteaseSpec: [],
+        global: [],
         loading: false,
       }
     },
-    created(){
+    created() {
       this.fetchData();
     },
     methods: {
-      fetchData(){
-        this.loading=true;
+      fetchData() {
+        this.loading = true;
         let url = 'http://112.74.56.114:8080/NetEaseMusicServer/fuckzzw';
         this.$http.get(url).then(response => {
-          this.loading=false;
+          this.loading = false;
           this.toplists = response.data;
-          this.neteaseSpec=this.toplists.special;
-          this.global=this.toplists.global;
+          this.neteaseSpec = this.toplists.special;
+          this.global = this.toplists.global;
           //console.log(this.toplists);
         }, response => {
           console.log('toplist error');

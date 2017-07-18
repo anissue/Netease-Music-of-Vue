@@ -1,7 +1,7 @@
 <template>
   <div class="slideMenu" ref="menu">
     <i @click="toggleMenu" class="icon-menu"></i>
-
+  
     <div class="content" v-show="menuFlag">
       <ul class="links">
         <li>
@@ -17,7 +17,7 @@
           <router-link to="/about"><i class="icon-users"></i><span>关于</span></router-link>
         </li>
       </ul>
-
+  
       <h5>我的音乐</h5>
       <ul class="links">
         <li>
@@ -30,19 +30,19 @@
           <router-link to="/recent"><i class="icon-clock"></i><span>最近播放</span></router-link>
         </li>
       </ul>
-
+  
       <h5>创建的歌单</h5>
       <ul class="links">
         <li>
           <router-link to="/favo"><i class="icon-heart"></i><span>我喜欢的音乐</span></router-link>
         </li>
       </ul>
-
+  
       <h5>收藏的歌单</h5>
       <ul class="collectList links">
         <li v-for="playlist in collectList">
           <router-link :to="{path: 'collectList' , query:{id:playlist.id}}">
-            <img :src="playlist.coverImgUrl"/>
+            <img :src="playlist.coverImgUrl" />
             <span>{{playlist.name}}</span>
           </router-link>
           <i class="icon-cross" @click="deleteList(playlist)"></i>
@@ -53,33 +53,33 @@
 </template>
 
 <script type="es6">
-  export default{
-    data(){
+  export default {
+    data() {
       return {
         menuFlag: true,
       }
     },
-    computed:{
-      collectList(){
+    computed: {
+      collectList() {
         return this.$store.getters.getCollectList;
       }
     },
     methods: {
-      toggleMenu(){
+      toggleMenu() {
         if (this.menuFlag === false) {
-          this.animate(this.$refs.menu,{
-            width : 200,
+          this.animate(this.$refs.menu, {
+            width: 200,
           })
           this.menuFlag = true;
         } else {
-          this.animate(this.$refs.menu,{
-            width :35
+          this.animate(this.$refs.menu, {
+            width: 35
           })
           this.menuFlag = false;
         }
       },
-      deleteList(playlist){
-        this.$store.dispatch('deleteList',playlist);
+      deleteList(playlist) {
+        this.$store.dispatch('deleteList', playlist);
       }
     },
   }

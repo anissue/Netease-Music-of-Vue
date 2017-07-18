@@ -20,17 +20,17 @@
         </li>
       </ul>
     </nav>
-      <keep-alive>
-        <router-view class="children" v-if="$route.meta.keepAlive"></router-view>
-      </keep-alive>
-      <router-view class="children" v-if="!$route.meta.keepAlive"></router-view>
+    <keep-alive>
+      <router-view class="children" v-if="$route.meta.keepAlive"></router-view>
+    </keep-alive>
+    <router-view class="children" v-if="!$route.meta.keepAlive"></router-view>
   </div>
 </template>
 
 <script type="es6">
-export default{
-
-}
+  export default {
+  
+  }
 </script>
 
 <style lang="stylus">

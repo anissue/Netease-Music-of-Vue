@@ -1,14 +1,15 @@
 <template>
-<div class="loading">
-	 <i class="icon-spinner10"></i>
-</div>
-   
+	<div class="loading">
+		<i class="icon-spinner10"></i>
+	</div>
 </template>
+
 <script>
-export default {
-	name: "load"
-}
+	export default {
+		name: "load"
+	}
 </script>
+
 <style lang="stylus">
 @import '../common/style/mixin.styl'
 .loading

@@ -15,11 +15,11 @@ Vue.prototype.$http = axios
 
 
 
-  /* eslint-disable no-new */
-  new Vue({
+/* eslint-disable no-new */
+new Vue({
     el: '#app',
     router,
     store,
     template: '<App/>',
-    components: {App},
-  })
+    components: { App },
+})

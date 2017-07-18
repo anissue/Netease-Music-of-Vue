@@ -1,26 +1,28 @@
 <template>
   <div class="artistInfo">
     <loading v-if="loading"></loading>
-
+  
     <h4>歌手</h4>
-
+  
     <div class="info" v-if="artistInfo">
-
+  
       <div class="avatar">
-        <img :src="artistInfo.artist.img1v1Url" alt=""/>
+        <img :src="artistInfo.artist.img1v1Url" alt="" />
       </div>
-
+  
       <div class="num">
         <span class="name">{{artistInfo.artist.name||"暂无"}}</span>
         <span><i class="icon-music"></i>歌曲数:{{artistInfo.artist.musicSize}}</span>
         <span><i class="icon-shocked"></i>专辑数:{{artistInfo.artist.albumSize}}</span>
         <span><i class="icon-film"></i>MV数:{{artistInfo.artist.mvSize}}</span>
       </div>
-
-      <div class="des"><p>{{artistInfo.artist.briefDesc ||"暂无"}}</p></div>
-
+  
+      <div class="des">
+        <p>{{artistInfo.artist.briefDesc ||"暂无"}}</p>
+      </div>
+  
     </div>
-
+  
     <p class="playAll" @click="playAll">热门50:播放全部</p>
     <songList :songs="artistInfo.hotSongs" v-if="artistInfo"></songList>
     <!-- <img v-if="artistInfo" :src="artistInfo.artist.img1v1Url" class="bg"> -->
@@ -31,17 +33,17 @@
   import loading from '../components/loading.vue'
   import songList from '../components/songList.vue'
   export default {
-    data(){
+    data() {
       return {
         artistInfo: null,
         loading: false,
       }
     },
-    created(){
+    created() {
       this.fetchData();
     },
     methods: {
-      fetchData(){
+      fetchData() {
         this.loading = true;
         if (this.$route.params['id'] == 0) {
           alert('暂无该歌手信息');
@@ -55,7 +57,7 @@
           console.log('artistInfo error');
         });
       },
-      playAll(){
+      playAll() {
         this.$store.dispatch('playall', this.detail.playlist.tracks);
       },
     },

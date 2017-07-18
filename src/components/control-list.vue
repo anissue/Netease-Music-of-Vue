@@ -5,20 +5,16 @@
       <div class="head-two">收藏全部</div>
       <div class="head-three">清空</div>
     </div>
-    <li v-for="(song,index) in songs"
-        class="song"
-        :class="{active:song==bPlayingSong}">
-      <div class="songName"
-           @click="changeSong({index:index})">{{song.name}}
+    <li v-for="(song,index) in songs" class="song" :class="{active:song==bPlayingSong}">
+      <div class="songName" @click="changeSong({index:index})">{{song.name}}
       </div>
       <div class="songSinger">
-            <span v-for="artist in song.artist">
-              <router-link :to="{path: '/artist/' + artist.id}">{{artist.name+" "}}</router-link>
-            </span>
+        <span v-for="artist in song.artist">
+                <router-link :to="{path: '/artist/' + artist.id}">{{artist.name+" "}}</router-link>
+              </span>
       </div>
       <div>
-        <i class="deleteSong icon-cross"
-           @click="deleteSong(song)"></i>
+        <i class="deleteSong icon-cross" @click="deleteSong(song)"></i>
       </div>
     </li>
   </ul>
@@ -26,22 +22,22 @@
 
 <script type="es6">
   import Vue from 'vue'
-  export default{
+  export default {
     props: {
       songs: {
         type: Array
       },
     },
-    computed:{
-      bPlayingSong(){
+    computed: {
+      bPlayingSong() {
         return this.$store.state.bPlayingSong;
       }
     },
-    methods:{
-      changeSong(config){
-        this.$emit("changeSong",config);
+    methods: {
+      changeSong(config) {
+        this.$emit("changeSong", config);
       },
-      deleteSong(song){
+      deleteSong(song) {
         this.$store.dispatch('deleteSong', song);
       }
     },

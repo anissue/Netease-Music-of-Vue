@@ -6,11 +6,11 @@
 
 <script type="es6">
   import swiper from '../../components/swiper.vue'
-  export default{
+  export default {
     components: {
       swiper,
     },
-    data(){
+    data() {
       return {
         swiperImg: null,
         playlists: [],
@@ -18,11 +18,11 @@
         loading: false,
       }
     },
-    created(){
+    created() {
       this.fetchSwiper()
     },
     methods: {
-      fetchSwiper(){
+      fetchSwiper() {
         let api = "http://112.74.56.114:8080/NetEaseMusicServer/image";
         this.loading = true;
         this.$http.get(api).then(response => {

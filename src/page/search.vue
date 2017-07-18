@@ -1,58 +1,62 @@
 <template>
-<div class="search">
-  <div class="loading" v-if="loading">
+  <div class="search">
+    <div class="loading" v-if="loading">
       <img src="/static/loading.gif" alt="Loading...">
     </div>
-  <div class="searchBar">
-    <input class="searchBar" @keyup.enter="search" type="text" placeholder="搜索音乐、歌手、歌词、用户" v-model="message">
-    <i class="icon-search" @click="search"></i>
+    <div class="searchBar">
+      <input class="searchBar" @keyup.enter="search" type="text" placeholder="搜索音乐、歌手、歌词、用户" v-model="message">
+      <i class="icon-search" @click="search"></i>
+    </div>
+    <nav class="nav">
+      <ul class="links">
+        <li>
+          <router-link :to="{path: '/search/song' ,query:{key: message}}">单曲</router-link>
+        </li>
+        <li>
+          <router-link :to="{path: '/search/artist' ,query:{key: message}}">歌手</router-link>
+        </li>
+        <li>
+          <router-link :to="{path: 'playlist' ,query:{key: message}}">歌单</router-link>
+        </li>
+        <li>
+          <router-link to="/search/album">专辑</router-link>
+        </li>
+        <li>
+          <router-link to="/search/mv">MV</router-link>
+        </li>
+        <li>
+          <router-link to="/search/dj">主播电台</router-link>
+        </li>
+        <li>
+          <router-link to="/search/user">用户</router-link>
+        </li>
+      </ul>
+    </nav>
+    <keep-alive>
+      <router-view class="children" v-if="$route.meta.keepAlive"></router-view>
+    </keep-alive>
+    <router-view class="children" v-if="!$route.meta.keepAlive"></router-view>
   </div>
-  <nav class="nav">
-    <ul class="links">
-      <li>
-        <router-link :to="{path: '/search/song' ,query:{key: message}}">单曲</router-link>
-      </li>
-      <li>
-        <router-link :to="{path: '/search/artist' ,query:{key: message}}">歌手</router-link>
-      </li>
-      <li>
-        <router-link :to="{path: 'playlist' ,query:{key: message}}">歌单</router-link>
-      </li>
-      <li>
-        <router-link to="/search/album">专辑</router-link>
-      </li>
-      <li>
-        <router-link to="/search/mv">MV</router-link>
-      </li>
-      <li>
-        <router-link to="/search/dj">主播电台</router-link>
-      </li>
-      <li>
-        <router-link to="/search/user">用户</router-link>
-      </li>
-    </ul>
-  </nav>
-  <keep-alive>
-    <router-view class="children" v-if="$route.meta.keepAlive"></router-view>
-  </keep-alive>
-  <router-view class="children" v-if="!$route.meta.keepAlive"></router-view>
-</div>
 </template>
 
 <script type="es6">
   export default {
-    data(){
+    data() {
       return {
         message: "",
         loading: false,
         index: 0,
       }
     },
-    created(){
-    },
+    created() {},
     methods: {
-      search(){
-        this.$router.push({path: '/search/song' ,query:{key: this.message}});
+      search() {
+        this.$router.push({
+          path: '/search/song',
+          query: {
+            key: this.message
+          }
+        });
       },
     }
   }

@@ -3,10 +3,10 @@
     <ul class="playlists">
       <li class="playlist" v-for="playlist in playlists">
         <div class="cover">
-          <router-link :to="{path: 'playlistDetail' ,query:{id: playlist.id}}"><img :src="playlist.imgUrl"/></router-link>
+          <router-link :to="{path: 'playlistDetail' ,query:{id: playlist.id}}"><img :src="playlist.imgUrl" /></router-link>
         </div>
         <p class="title">{{playlist.title}}</p>
-
+  
         <p class="creator">by {{playlist.creator}} </p>
       </li>
     </ul>
@@ -15,25 +15,25 @@
 
 <script type="es6">
   export default {
-    data(){
+    data() {
       return {
         playlists: [],
         index: 0,
-        limit:24,
+        limit: 24,
         loading: false,
-        ajaxFlag:1,
+        ajaxFlag: 1,
       }
     },
-    computed:{
-      lastPosition(){
+    computed: {
+      lastPosition() {
         return this.$store.getters.getScrollPosition;
       }
     },
-    created(){
+    created() {
       this.fetchPlaylist(this.limit, this.index);
     },
     methods: {
-      fetchPlaylist(limit, page){
+      fetchPlaylist(limit, page) {
         let playlistApi = "http://112.74.56.114:8080/NetEaseMusicServer/index?limit=";
         let api = playlistApi + limit + "&pagenum=" + page;
         this.$http.get(api).then(response => {
@@ -44,7 +44,7 @@
           console.log('playlists error');
         });
       },
-      scrollMore(){ //滚动到底部加载更多
+      scrollMore() { //滚动到底部加载更多
         let scroll = this.$refs.index.scrollTop;
         let visiHeight = this.$refs.index.clientHeight;
         let fullHeight = this.$refs.index.scrollHeight;
@@ -54,13 +54,13 @@
         }
       },
     },
-    beforeRouteLeave (to, from, next) {//离开时将滚动条位置记录进vuex
+    beforeRouteLeave(to, from, next) { //离开时将滚动条位置记录进vuex
       let position = this.$refs.index.scrollTop;
       this.$store.dispatch('setScrollPosition', position);
       //console.log(position);
       next();
     },
-    beforeRouteEnter (to, from, next) {//复位滚动条,enter之前无法使用this只有通过回调
+    beforeRouteEnter(to, from, next) { //复位滚动条,enter之前无法使用this只有通过回调
       next(vm => {
         //console.log(vm.lastPosition);
         vm.$refs.index.scrollTop = vm.lastPosition;

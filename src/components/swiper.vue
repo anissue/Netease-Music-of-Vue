@@ -1,8 +1,8 @@
 <template>
   <div class="slider" @mouseover="showBtn" @mouseout="hideBtn" ref="swiper" v-if="newSwiper">
     <ul class="box" ref="box">
-      <li v-for="(img,imgIndex) in newSwiper" :class="{active:isImgActive[imgIndex]}" ref="boxItem"><img :src="img.imgurl" alt=""/>
-
+      <li v-for="(img,imgIndex) in newSwiper" :class="{active:isImgActive[imgIndex]}" ref="boxItem"><img :src="img.imgurl" alt="" />
+  
         <div class="mask"></div>
       </li>
     </ul>
@@ -18,7 +18,7 @@
 
 <script type="es6">
   import Vue from 'vue'
-  export default{
+  export default {
     props: {
       swiperImg: {
         type: Array
@@ -27,7 +27,7 @@
         type: Boolean
       },
     },
-    data(){
+    data() {
       return {
         newSwiper: [],
         btnShow: false,
@@ -41,27 +41,27 @@
         length: null,
       }
     },
-    created(){
+    created() {
       this.initSwiper();
     },
     methods: {
-      initSwiper(){
+      initSwiper() {
         for (let i = 0; i < this.swiperImg.length; i++) {
           Vue.set(this.newSwiper, i, this.swiperImg[i]);
         }
         this.newSwiper.push(this.swiperImg[0]);
         this.newSwiper.push(this.swiperImg[1]);
-        this.newSwiper.unshift(this.swiperImg[this.swiperImg.length-1]);
+        this.newSwiper.unshift(this.swiperImg[this.swiperImg.length - 1]);
         var that = this;
-        Vue.nextTick(function () {
+        Vue.nextTick(function() {
           that.length = that.newSwiper.length;
           let swpierWidth = that.$refs.swiper.offsetWidth;
-          that.moveDistance = swpierWidth / 2;//移动步长
+          that.moveDistance = swpierWidth / 2; //移动步长
           that.halfDistance = that.moveDistance / 2;
-          that.initDistance = that.halfDistance;//起始位置距离
-          let boxWidth = (swpierWidth / 2) * that.newSwiper.length;//盒子总宽度
+          that.initDistance = that.halfDistance; //起始位置距离
+          let boxWidth = (swpierWidth / 2) * that.newSwiper.length; //盒子总宽度
           that.$refs.box.style.width = boxWidth + "px";
-          that.$refs.box.style.left = -that.initDistance + "px";//起始位置
+          that.$refs.box.style.left = -that.initDistance + "px"; //起始位置
           that.setActive();
           let lis = that.$refs.boxItem;
           for (let i = 0; i < lis.length; i++) {
@@ -72,21 +72,21 @@
           this.autoPlay();
         }
       },
-      autoPlay(){
+      autoPlay() {
         let that = this;
-        this.autoTimer = setInterval(function () {
+        this.autoTimer = setInterval(function() {
           that.next();
         }, 2000);
       },
-      showBtn(){
+      showBtn() {
         this.btnShow = true;
         clearInterval(this.autoTimer);
       },
-      hideBtn(){
+      hideBtn() {
         this.btnShow = false;
         this.autoPlay();
       },
-      pre(){
+      pre() {
         this.index--;
         if (this.index < 0) {
           //迅速切换到末尾对应位置
@@ -97,7 +97,7 @@
         this.animate1(this.$refs.box, -this.moveDistance * this.index - this.halfDistance);
         this.setActive();
       },
-      next(){
+      next() {
         this.index++;
         if (this.index > this.length - 3) {
           //迅速切换至开头对应位置
@@ -108,29 +108,27 @@
         this.animate1(this.$refs.box, -this.moveDistance * this.index - this.halfDistance);
         this.setActive();
       },
-      dotChange(index){
-        this.index=index;
+      dotChange(index) {
+        this.index = index;
         this.$refs.box.style.left = -this.moveDistance * this.index - this.halfDistance + "px";
         this.setActive();
       },
-      setActive(){
+      setActive() {
         for (let i = 0; i < this.newSwiper.length; i++) {
           Vue.set(this.isImgActive, i, 0);
         }
-        this.isImgActive[this.index+1] = 1;
+        this.isImgActive[this.index + 1] = 1;
         for (let i = 0; i < this.swiperImg.length; i++) {
           Vue.set(this.isDotActive, i, 0);
         }
-        if(this.index==this.length-3){
-          this.isDotActive[0]=1;
-        }else{
+        if (this.index == this.length - 3) {
+          this.isDotActive[0] = 1;
+        } else {
           this.isDotActive[this.index] = 1;
         }
       }
     }
   }
-
-
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

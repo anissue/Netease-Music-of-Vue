@@ -1,26 +1,26 @@
 <template>
   <div class="playlist-detail">
     <loading v-if="loading"></loading>
-
+  
     <div class="list" v-if="detail">
       <h4>歌单</h4>
       <div class="info">
-
+  
         <div class="cover">
-          <img :src="detail.playlist.coverImgUrl"/>
-
+          <img :src="detail.playlist.coverImgUrl" />
+  
           <div class="count"><span><i class="icon-headphones"></i>{{detail.playlist.playCount}}</span></div>
         </div>
-
+  
         <div class="others">
           <p class="title">{{detail.playlist.name}}</p>
-
+  
           <div class="user">
             <div class="avatar"><img :src="detail.playlist.creator.avatarUrl" alt=""></div>
             <div class="userName">{{detail.playlist.creator.nickname}}</div>
             <div class="time">{{createTime}}创建</div>
           </div>
-
+  
           <div class="btns">
             <a @click="collect"><i class="icon-folder-plus"></i>收藏({{detail.playlist.subscribedCount}})</a>
             <a href="javascript:void(0)"><i class="icon-spinner9"></i>评论({{detail.playlist.commentCount}})</a>
@@ -28,16 +28,18 @@
             <a href="javascript:void(0)"><i class="icon-folder-download"></i>下载全部</a>
             <a href="javascript:void(0)">~更多</a>
           </div>
-
+  
           <div class="tag">标签：
             <a v-for="tag in detail.playlist.tags">{{tag}}</a>
           </div>
-          <div class="des"><p @click="showDes" ref="des">{{detail.playlist.description}}</p></div>
-
+          <div class="des">
+            <p @click="showDes" ref="des">{{detail.playlist.description}}</p>
+          </div>
+  
         </div>
-
+  
       </div>
-
+  
       <p class="playAll" @click="playAll">播放全部({{detail.playlist.tracks.length}})</p>
       <songList :songs="detail.playlist.tracks"></songList>
     </div>
@@ -49,18 +51,18 @@
   import songList from '../components/songList.vue'
   import loading from '../components/loading.vue'
   export default {
-    data(){
+    data() {
       return {
         detail: null,
         loading: false,
         desFlag: false
       }
     },
-    created(){
+    created() {
       this.fetchData();
     },
     methods: {
-      fetchData(){
+      fetchData() {
         this.loading = true;
         let url = 'https://api.imjad.cn/cloudmusic/?type=playlist&id=';
         this.$http.get(url + this.$route.query['id']).then(response => {
@@ -71,7 +73,7 @@
           console.log('detail error');
         })
       },
-      showDes(){
+      showDes() {
         if (this.desFlag === false) {
           this.$refs.des.style.maxHeight = "100vh";
           this.desFlag = true;
@@ -80,15 +82,15 @@
           this.desFlag = !this.desFlag;
         }
       },
-      playAll(){
+      playAll() {
         this.$store.dispatch('playall', this.detail.playlist.tracks);
       },
-      collect(){
+      collect() {
         this.$store.dispatch('collectList', this.detail.playlist);
       }
     },
     computed: {
-      createTime(){
+      createTime() {
         var date = new Date(this.detail.playlist.createTime);
         date = date.toString();
         var month = date.toString().split(' ')[1];
@@ -137,7 +139,7 @@
         return year + "-" + month + "-" + day;
       },
     },
-    watch: {//避免同级路由（如收藏的歌单之间相互跳转url变化但是组件不变化）相互跳转组件不刷新
+    watch: { //避免同级路由（如收藏的歌单之间相互跳转url变化但是组件不变化）相互跳转组件不刷新
       '$route' (to, from) {
         this.fetchData();
       }

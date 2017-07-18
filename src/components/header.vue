@@ -1,25 +1,25 @@
 <template>
-  <div class="header">
-    <div class="left">
-      <i class="icon-arrow-left" @click="goBackForward"></i>
-      <h2 class="title">SoulBeats</h2>
-    </div>
-    <div class="right">
-      <i></i>
-      <i></i>
-      <i class="icon-cross"></i>
-    </div>
-  </div>
+	<div class="header">
+		<div class="left">
+			<i class="icon-arrow-left" @click="goBackForward"></i>
+			<h2 class="title">SoulBeats</h2>
+		</div>
+		<div class="right">
+			<i></i>
+			<i></i>
+			<i class="icon-cross"></i>
+		</div>
+	</div>
 </template>
 
 <script type="es6">
-  export default{
-    methods: {
-      goBackForward(){
-        this.$router.go(-1);
-      }
-    }
-  }
+	export default {
+		methods: {
+			goBackForward() {
+				this.$router.go(-1);
+			}
+		}
+	}
 </script>
 
 <style lang="stylus">

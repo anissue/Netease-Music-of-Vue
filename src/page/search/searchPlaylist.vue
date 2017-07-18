@@ -1,31 +1,31 @@
 <template>
-<div class="searchPlaylist" ref="index" @scroll="scrollMore('index','searchPlaylist')">
-  <ul class="playlists">
-    <li class="playlist" v-for="playlist in searchRes">
-      <router-link :to="{path: '/playlistDetail' ,query:{id: playlist.id}}">
-        <img class="cover" :src="playlist.coverImgUrl">
-        <span class="name">{{playlist.name}}</span>
-        <span class="count">{{playlist.trackCount}} 首</span>
-        <span class="author">by {{playlist.creator.nickname}}</span>
-        <span class="playCount">播放：{{playlist.playCount}}</span>
-      </router-link>
-    </li>
-  </ul>
-</div>
+  <div class="searchPlaylist" ref="index" @scroll="scrollMore('index','searchPlaylist')">
+    <ul class="playlists">
+      <li class="playlist" v-for="playlist in searchRes">
+        <router-link :to="{path: '/playlistDetail' ,query:{id: playlist.id}}">
+          <img class="cover" :src="playlist.coverImgUrl">
+          <span class="name">{{playlist.name}}</span>
+          <span class="count">{{playlist.trackCount}} 首</span>
+          <span class="author">by {{playlist.creator.nickname}}</span>
+          <span class="playCount">播放：{{playlist.playCount}}</span>
+        </router-link>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script type="es6">
-  export default{
-    data(){
+  export default {
+    data() {
       return {
-        searchRes:[],
-        ajaxFlag:1,
-        limit:20,
-        offset:1,
+        searchRes: [],
+        ajaxFlag: 1,
+        limit: 20,
+        offset: 1,
       }
     },
-    created(){
-      this.fetchData(this.limit,this.offset,"searchPlaylist");
+    created() {
+      this.fetchData(this.limit, this.offset, "searchPlaylist");
     },
   }
 </script>

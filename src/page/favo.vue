@@ -3,14 +3,14 @@
     <div class="list" v-if="favoSongs">
       <h4>歌单</h4>
       <div class="info">
-
+  
         <div class="cover">
-          <img src="https://p1.music.126.net/2dBbYyB5DqJWzu1CqDg11w==/19238154951419549.jpg"/>
+          <img src="https://p1.music.126.net/2dBbYyB5DqJWzu1CqDg11w==/19238154951419549.jpg" />
         </div>
-
+  
         <div class="others">
           <p class="title">我喜欢的歌曲</p>
-
+  
           <div class="user">
             <div class="avatar"><img src="https://p1.music.126.net/2dBbYyB5DqJWzu1CqDg11w==/19238154951419549.jpg" alt=""></div>
             <div class="userName">Zac</div>
@@ -28,8 +28,8 @@
   import songList from '../components/songList.vue'
   import loading from '../components/loading.vue'
   export default {
-    computed:{
-      favoSongs(){
+    computed: {
+      favoSongs() {
         return this.$store.state.favoSongs;
       }
     },

@@ -6,51 +6,50 @@
         <i class="icon-heart" v-show="favoFlag" @click="favoSong(song)"></i>
         <span class="songName">{{song.name}}</span>
       </div>
-
+  
       <div class="artist-section">
         <i class="icon-plus" @click="addSong(song)"></i>
         <i class="icon-play3" @click="playSong(song)"></i>
-            <span class="songArtists">
-              <span v-for="artist in song.ar">
-                <router-link :to="{path: '/artist/' + artist.id}">{{artist.name + " "}}</router-link>
-              </span>
-            </span>
+        <span class="songArtists">
+                <span v-for="artist in song.ar">
+                  <router-link :to="{path: '/artist/' + artist.id}">{{artist.name + " "}}</router-link>
+                </span>
+        </span>
       </div>
       <div class="songAlbum">{{song.al.name}}</div>
       <div class="duration" v-show="dtFlag">{{duration(song.dt)}}</div>
       <div v-show="delFlag">
-        <i class="deleteSong icon-cross"
-           @click="unfavoSong(song)"></i>
+        <i class="deleteSong icon-cross" @click="unfavoSong(song)"></i>
       </div>
     </li>
   </ul>
 </template>
 
 <script type="es6">
-  export default{
+  export default {
     props: {
       songs: {
         type: Array
       },
-      noFlag:{
-        type:Boolean,
-        default:true,
+      noFlag: {
+        type: Boolean,
+        default: true,
       },
-      dtFlag:{
-        type:Boolean,
-        default:true,
+      dtFlag: {
+        type: Boolean,
+        default: true,
       },
-      favoFlag:{
-        type:Boolean,
-        default:true,
+      favoFlag: {
+        type: Boolean,
+        default: true,
       },
-      delFlag:{
-        type:Boolean,
-        default:false,
+      delFlag: {
+        type: Boolean,
+        default: false,
       },
     },
     methods: {
-      duration(ms){
+      duration(ms) {
         let duration = ms / 1000;
         let min = parseInt(duration / 60);
         let sec = parseInt(duration - min * 60);
@@ -59,23 +58,23 @@
         }
         return min + ':' + sec;
       },
-      specIndex(i){
+      specIndex(i) {
         if (i < 10) {
           return "0" + i;
         } else {
           return i;
         }
       },
-      playSong(song){
+      playSong(song) {
         this.$store.dispatch('playSong', song);
       },
-      addSong(song){
+      addSong(song) {
         this.$store.dispatch('addSong', song);
       },
-      favoSong(song){
+      favoSong(song) {
         this.$store.dispatch('collectFavoSong', song);
       },
-      unfavoSong(song){
+      unfavoSong(song) {
         this.$store.dispatch('deleteFavoSong', song);
       }
     }
