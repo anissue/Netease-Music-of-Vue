@@ -79,7 +79,8 @@ const mutations = {
         for (let i = 0; i < playlist.length; i++) {
             state.songs.unshift(playlist[i]);
         }
-        state.bPlayingSong = playlist[0];
+        //state.bPlayingSong = playlist[0];
+        state.playFlag = state.playFlag + 1;
     },
     COLLECT_LIST(state, playlist) {
         state.collectList.push(playlist);

@@ -267,10 +267,12 @@
         let url = "https://api.imjad.cn/cloudmusic/?type=song&id=";
         this.$http.get(url + song.id).then(response => {
           let mp3Url = response.data.data[0].url;
-          if (mp3Url == "null") {
-            song.name = "该资源暂时无法获取";
+          if(mp3Url){
+            this.currentSong.mp3Url = mp3Url;
+          }else{
+            alert('该歌曲暂时没有资源');
+            return;
           }
-          this.currentSong.mp3Url = mp3Url;
           this.currentSong.id = song.id;
           this.currentSong.album = song.album;
           this.currentSong.name = song.name;
