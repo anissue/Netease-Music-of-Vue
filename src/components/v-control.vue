@@ -412,7 +412,7 @@
         let url = 'https://api.imjad.cn/cloudmusic/?type=lyric&id=' + this.currentSong.id;
         this.$http.get(url).then(response => {
           if (response.data.code === 200) {
-            if (response.data.sgc) {
+            if (response.data.lrc) {
               this.lyric = this.parseLyric(response.data.lrc.lyric);
               for (let i = 0; i < this.lyric.length; i++) {
                 Vue.set(this.isActive, i, 0);
