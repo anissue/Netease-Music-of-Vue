@@ -23,7 +23,7 @@
     },
     methods: {
       fetchSwiper() {
-        let api = "http://112.74.56.114:8080/NetEaseMusicServer/image";
+        let api = "http://112.74.56.114:8888/NetEaseMusicServer/image";
         this.loading = true;
         this.$http.get(api).then(response => {
           this.swiperImg = response.data;

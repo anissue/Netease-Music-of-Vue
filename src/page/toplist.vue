@@ -54,7 +54,7 @@
     methods: {
       fetchData() {
         this.loading = true;
-        let url = 'http://112.74.56.114:8080/NetEaseMusicServer/fuckzzw';
+        let url = 'http://112.74.56.114:8888/NetEaseMusicServer/fuckzzw';
         this.$http.get(url).then(response => {
           this.loading = false;
           this.toplists = response.data;

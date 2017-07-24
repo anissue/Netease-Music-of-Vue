@@ -34,7 +34,7 @@
     },
     methods: {
       fetchPlaylist(limit, page) {
-        let playlistApi = "http://112.74.56.114:8080/NetEaseMusicServer/index?limit=";
+        let playlistApi = "http://112.74.56.114:8888/NetEaseMusicServer/index?limit=";
         let api = playlistApi + limit + "&pagenum=" + page;
         this.$http.get(api).then(response => {
           this.playlists = [...this.playlists, ...response.data];
