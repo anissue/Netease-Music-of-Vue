@@ -9,9 +9,9 @@ import './common/style/style.css'
 import util from './common/util.js'
 import store from './store/store.js'
 import axios from 'axios'
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 Vue.use(util);
-Vue.prototype.$http = axios
+Vue.prototype.$http = axios;
 
 
 
@@ -22,4 +22,4 @@ new Vue({
     store,
     template: '<App/>',
     components: { App },
-})
+});
