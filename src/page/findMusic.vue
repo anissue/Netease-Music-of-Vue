@@ -28,41 +28,40 @@
 </template>
 
 <script type="es6">
-  export default {
-  
-  }
+  export default {}
 </script>
 
 <style lang="stylus">
-@import '../common/style/mixin.styl'
-.findMusic
-  mx_pagepadding();
-  position:relative;
-  .children
-    position:absolute;
-    width:95%;
-    height:600px;
-    top:100px;
-    bottom:0;
-    overflow:auto;
-	.nav
-		position:absolute;
-		left:30px;
-		top:40px;
-		width:90%;
-		overflow:hidden;
-		border-bottom:1px solid rgba(7,17,27,0.2);
-		.links
-			overflow:hidden;
-			&>li
-				float:left;
-				margin-right:25px;
-				&>a
-					display:block;
-					font-size:15px;
-					height:40px;
-					line-height:40px;
-					color:#000;
-					&.active
-						border-bottom:2px solid #c62e2e;
+  @import '../common/style/mixin.styl'
+  .findMusic
+    mx_pagepadding();
+    position: relative;
+    .children
+      position: absolute;
+      width: 95%;
+      height: 600px;
+      top: 100px;
+      bottom: 0;
+      overflow: auto;
+
+  .nav
+    position: absolute;
+    left: 30px;
+    top: 40px;
+    width: 90%;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(7, 17, 27, 0.2);
+    .links
+      overflow: hidden;
+      & > li
+        float: left;
+        margin-right: 25px;
+        & > a
+          display: block;
+          font-size: 15px;
+          height: 40px;
+          line-height: 40px;
+          color: #000;
+          &.active
+            border-bottom: 2px solid #c62e2e;
 </style>

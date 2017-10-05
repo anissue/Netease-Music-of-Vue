@@ -5,8 +5,6 @@
 			<h2 class="title">SoulBeats</h2>
 		</div>
 		<div class="right">
-			<i></i>
-			<i></i>
 			<i class="icon-cross"></i>
 		</div>
 	</div>

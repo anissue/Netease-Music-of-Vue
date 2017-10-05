@@ -2,9 +2,9 @@
   <div id="app">
     <v-header></v-header>
     <div class="container">
-    <slide-menu></slide-menu>
+      <slide-menu></slide-menu>
       <keep-alive>
-          <router-view v-if="$route.meta.keepAlive" id="view"></router-view>
+        <router-view v-if="$route.meta.keepAlive" id="view"></router-view>
       </keep-alive>
       <router-view v-if="!$route.meta.keepAlive" id="view"></router-view>
     </div>
@@ -16,8 +16,9 @@
   import vHeader from './components/header.vue'
   import vControl from './components/v-control.vue'
   import slideMenu from './components/slide-menu.vue'
+
   export default {
-    created(){
+    created() {
       this.$store.commit('INIT');
     },
     components: {
@@ -35,19 +36,19 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
   }
+
   .container
-    display:flex;
-    position:absolute;
-    top:30px;
-    bottom:60px;
-    width:100%;
-    overflow:auto;
+    display: flex;
+    position: absolute;
+    top: 30px;
+    bottom: 60px;
+    width: 100%;
+    overflow: auto;
     #view
-      flex:1;
-      box-sizing:border-box;
+      flex: 1;
+      box-sizing: border-box;
       overflow-x: hidden;
       overflow-y: auto;
-      color:#000;
-      background-color:#fafafc;
-            /*#fafafc;*/
+      color: #000;
+      background-color: #fafafc;
 </style>

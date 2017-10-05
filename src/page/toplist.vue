@@ -54,13 +54,12 @@
     methods: {
       fetchData() {
         this.loading = true;
-        let url = 'http://112.74.56.114:8888/NetEaseMusicServer/fuckzzw';
-        this.$http.get(url).then(response => {
+        const URL = 'http://112.74.56.114:8888/NetEaseMusicServer/fuckzzw';
+        this.$http.get(URL).then(response => {
           this.loading = false;
           this.toplists = response.data;
           this.neteaseSpec = this.toplists.special;
           this.global = this.toplists.global;
-          //console.log(this.toplists);
         }, response => {
           console.log('toplist error');
         });
@@ -87,7 +86,7 @@
       &>li
         mx_wh(48%,120px);
         border:1px solid rgba(7,17,27,0.2);
-        margin-bottom:30px; 
+        margin-bottom:30px;
         &>a
           mx_wh(100%,100%);
           mx_flex();

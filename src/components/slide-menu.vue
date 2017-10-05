@@ -1,7 +1,7 @@
 <template>
-  <div class="slideMenu" ref="menu">
+  <div class="slide-menu" :class="{ hidden: !menuFlag }">
     <i @click="toggleMenu" class="icon-menu"></i>
-  
+
     <div class="content" v-show="menuFlag">
       <ul class="links">
         <li>
@@ -17,7 +17,7 @@
           <router-link to="/about"><i class="icon-users"></i><span>关于</span></router-link>
         </li>
       </ul>
-  
+
       <h5>我的音乐</h5>
       <ul class="links">
         <li>
@@ -30,14 +30,14 @@
           <router-link to="/recent"><i class="icon-clock"></i><span>最近播放</span></router-link>
         </li>
       </ul>
-  
+
       <h5>创建的歌单</h5>
       <ul class="links">
         <li>
           <router-link to="/favo"><i class="icon-heart"></i><span>我喜欢的音乐</span></router-link>
         </li>
       </ul>
-  
+
       <h5>收藏的歌单</h5>
       <ul class="collectList links">
         <li v-for="playlist in collectList">
@@ -66,17 +66,7 @@
     },
     methods: {
       toggleMenu() {
-        if (this.menuFlag === false) {
-          this.animate(this.$refs.menu, {
-            width: 200,
-          })
-          this.menuFlag = true;
-        } else {
-          this.animate(this.$refs.menu, {
-            width: 35
-          })
-          this.menuFlag = false;
-        }
+        this.menuFlag = !this.menuFlag;
       },
       deleteList(playlist) {
         this.$store.dispatch('deleteList', playlist);
@@ -87,12 +77,16 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../common/style/mixin.styl'
-.slideMenu
+.slide-menu
     width:15%;
     overflow:auto;
     text-align:left;
     mx_fc(14px,#bfbfc0);
     background-color #f3f3f5;
+    transition:0.2s;
+    &.hidden
+      width:35px;
+      transition:0.5s;
     &>i
       mx_hlh(45px,45px);
       margin-left:10px;

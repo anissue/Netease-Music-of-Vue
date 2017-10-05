@@ -3,10 +3,10 @@
     <ul class="playlists">
       <li class="playlist" v-for="playlist in playlists">
         <div class="cover">
-          <router-link :to="{path: 'playlistDetail' ,query:{id: playlist.id}}"><img :src="playlist.imgUrl" /></router-link>
+          <router-link :to="{path: 'playlistDetail' ,query:{id: playlist.id}}"><img :src="playlist.imgUrl"/></router-link>
         </div>
         <p class="title">{{playlist.title}}</p>
-  
+
         <p class="creator">by {{playlist.creator}} </p>
       </li>
     </ul>
@@ -34,9 +34,9 @@
     },
     methods: {
       fetchPlaylist(limit, page) {
-        let playlistApi = "http://112.74.56.114:8888/NetEaseMusicServer/index?limit=";
-        let api = playlistApi + limit + "&pagenum=" + page;
-        this.$http.get(api).then(response => {
+        let URL = "http://112.74.56.114:8888/NetEaseMusicServer/index?limit=";
+        const API = URL + limit + "&pagenum=" + page;
+        this.$http.get(API).then(response => {
           this.playlists = [...this.playlists, ...response.data];
           this.index = this.index + 1;
           this.ajaxFlag = 1;
@@ -71,32 +71,32 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   .playlists
-    display:flex;
-    flex-wrap:wrap;
-    aligin-items:center;
-    margin-left:60px;
-    text-align:left;
+    display: flex;
+    flex-wrap: wrap;
+    aligin-items: center;
+    margin-left: 60px;
+    text-align: left;
     .playlist
-      width:145px;
-      height:200px;
-      margin-right:20px;
-      margin-bottom:30px;
-      overflow:hidden;
-      cursor:default;
+      width: 145px;
+      height: 200px;
+      margin-right: 20px;
+      margin-bottom: 30px;
+      overflow: hidden;
+      cursor: default;
       .cover
-        width:100%;
-        height:145px;
-        margin-bottom:10px;
+        width: 100%;
+        height: 145px;
+        margin-bottom: 10px;
       .title
-        height:16px;
-        font-size :16px;
+        height: 16px;
+        font-size: 16px;
         overflow: hidden;
-        text-overflow:ellipsis;
+        text-overflow: ellipsis;
         white-space: nowrap;
-        text-overflow:ellipsis;
-        margin-bottom:10px;
+        text-overflow: ellipsis;
+        margin-bottom: 10px;
       .creator
-        color:#a4a4a5;
-        font-size:12px;
-        text-align:left;
+        color: #a4a4a5;
+        font-size: 12px;
+        text-align: left;
 </style>

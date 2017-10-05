@@ -9,15 +9,15 @@
         <div class="mask"><i class="icon-enlarge2"></i></div>
       </div>
       <audio ref="music" :src="currentSong.mp3Url" @canplay="calTtime" @timeupdate="changeTime">
-          您的浏览器不支持 audio 标签。
-        </audio>
+        您的浏览器不支持 audio 标签。
+      </audio>
       <div class="detail">
         <!--三大金刚开始-->
         <div class="ply">
           <button class="preSongBtn" @click="preSong"><i class='icon-previous2'></i></button>
           <button class="ply-btn" @click="PlayorPause">
-              <i :class="pIconFlag"></i>
-            </button>
+            <i :class="pIconFlag"></i>
+          </button>
           <button class="nextSongBtn" @click="nextSong"><i class="icon-next2"></i></button>
         </div>
         <!-- 三大金刚结束-->
@@ -49,8 +49,8 @@
             <!-- 音量 开始 -->
             <div class="volLine">
               <button class="noVol" @click="toggleMute">
-                  <i :class="vIconFlag"></i>
-                </button>
+                <i :class="vIconFlag"></i>
+              </button>
               <div ref="vol" class="vol" @click="setVol($event)">
                 <span ref="nowVol" class="nowVol"></span>
               </div>
@@ -104,6 +104,7 @@
 <script type="es6">
   import Vue from "vue"
   import controlList from "./control-list.vue"
+
   export default {
     data() {
       return {
@@ -139,8 +140,8 @@
       }
     },
     created() {
-      var that = this;
-      Vue.nextTick(function() {
+      let that = this;
+      Vue.nextTick(function () {
         that.initWallPaper();
       });
       this.fetchLyric();
@@ -267,16 +268,16 @@
         let url = "https://api.imjad.cn/cloudmusic/?type=song&id=";
         this.$http.get(url + song.id).then(response => {
           let mp3Url = response.data.data[0].url;
-          if(mp3Url){
+          if (mp3Url) {
             this.currentSong.mp3Url = mp3Url;
-          }else{
+          } else {
             alert('该歌曲暂时没有资源');
             return;
           }
           this.currentSong.id = song.id;
           this.currentSong.album = song.album;
           this.currentSong.name = song.name;
-          this.currentSong.artist = song.artist
+          this.currentSong.artist = song.artist;
           this.fetchLyric();
           this.initWallPaper();
           if (this.music.currentTime === this.music.duration || !this.music.paused || config.flag === "playNow") { //音乐结束情况下切换可以自动播放
@@ -284,7 +285,8 @@
             this.music.autoplay = true;
             this.toPlay();
           } else {
-            this.music.autoplay = false;;
+            this.music.autoplay = false;
+            ;
             this.toPause();
           }
         }, error => {
@@ -346,8 +348,8 @@
       listCircle() { //模式0 列表循环（默认）
         clearInterval(this.timer);
         this.mIconFlag = "icon-loop";
-        var that = this;
-        this.timer = setInterval(function() {
+        let that = this;
+        this.timer = setInterval(function () {
           if (that.music.ended) {
             that.songIndex = that.songIndex + 1;
             if (that.songIndex === that.songs.length) {
@@ -362,8 +364,8 @@
       oneCircle() { //模式1 单曲循环
         clearInterval(this.timer);
         this.mIconFlag = "icon-loop2";
-        var that = this;
-        this.timer = setInterval(function() {
+        let that = this;
+        this.timer = setInterval(function () {
           if (that.music.ended) {
             that.changeSong({
               index: that.songIndex
@@ -374,8 +376,8 @@
       listRandom() { //模式2 随机播放
         clearInterval(this.timer);
         this.mIconFlag = "icon-shuffle";
-        var that = this;
-        this.timer = setInterval(function() {
+        let that = this;
+        this.timer = setInterval(function () {
           if (that.music.ended) {
             let rd = Math.random() * that.songs.length;
             that.songIndex = Math.floor(rd);
@@ -388,8 +390,8 @@
       orderPlay() { //模式3  顺序播放
         clearInterval(this.timer);
         this.mIconFlag = "icon-spinner11";
-        var that = this;
-        this.timer = setInterval(function() {
+        let that = this;
+        this.timer = setInterval(function () {
           if (that.music.ended) {
             that.songIndex = that.songIndex + 1;
             if (that.songIndex === that.songs.length) {
@@ -433,30 +435,30 @@
       },
       parseLyric(text) {
         //将文本分隔成一行一行，存入数组
-        var lines = text.split('\n');
+        let lines = text.split('\n');
         //用于匹配时间的正则表达式，匹配的结果类似[xx:xx.xx]
-        var pattern = /\[\d{2}:\d{2}.\d{1,3}\]/g;
+        let pattern = /\[\d{2}:\d{2}.\d{1,3}\]/g;
         //保存最终结果的数组
-        var result = [];
+        let result = [];
         //去掉不含时间的行
         while (!pattern.test(lines[0])) {
           lines = lines.slice(1);
-        };
+        }
         //上面用'\n'生成生成数组时，结果中最后一个为空元素，这里将去掉
         lines[lines.length - 1].length === 0 && lines.pop();
-        for (var i = 0; i < lines.length; i++) {
-          var line = lines[i];
-          var value = line.replace(pattern, ''); //提取歌词 将时间清空 返回一个新的字符串
-          var times = line.match(pattern); //返回数组 [时间]，对该数组做处理，将时间转为秒数，同时注意此类情况:多个时间点共享同一句歌词，[时间1，时间2...]
-          times.forEach(function(time) {
+        for (let i = 0; i < lines.length; i++) {
+          let line = lines[i];
+          let value = line.replace(pattern, ''); //提取歌词 将时间清空 返回一个新的字符串
+          let times = line.match(pattern); //返回数组 [时间]，对该数组做处理，将时间转为秒数，同时注意此类情况:多个时间点共享同一句歌词，[时间1，时间2...]
+          times.forEach(function (time) {
             //去掉时间里的中括号得到xx:xx.xx并用:分割得到[xx,xx.xx]的数组
-            var t = time.slice(1, -1).split(':');
+            let t = time.slice(1, -1).split(':');
             //将结果压入最终数组
             result.push([parseInt(t[0], 10) * 60 + parseFloat(t[1]), value]); //组合成 [时间,歌词]
             //此处可能多个时间对应同一句歌词，而result.push显然会打乱顺序的，例如第一个时间点和最后一个时间点共享同一句歌词，而此时Push进去他们是相邻的，应按照时间顺序进行排序
           });
         }
-        result.sort(function(a, b) {
+        result.sort(function (a, b) {
           return a[0] - b[0]; //加上下标 是为了取出时间 result[0][0]与result[1][0]做比较而不是result[0]与result[1]做比较
         });
         return result;
@@ -464,7 +466,7 @@
     },
     watch: {
       playFlag: {
-        handler: function() {
+        handler: function () {
           this.changeSong({
             index: 0,
             flag: 'playNow'
@@ -473,7 +475,7 @@
         deep: true
       },
       bPlayingSong: {
-        handler: function() {
+        handler: function () {
           if (this.music.paused) {
             this.isRoll = false;
           } else {
@@ -490,5 +492,5 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-@import './v-control';
+  @import './v-control';
 </style>

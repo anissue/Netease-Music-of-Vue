@@ -75,7 +75,7 @@
       position absolute
       left:0;
       top:0;
-      box-sizing border-box
+      box-sizing border-box;
       width:95%;
       height:45px;
       font-size:15px;

@@ -5,7 +5,7 @@
 </template>
 
 <script type="es6">
-  import swiper from '../../components/swiper.vue'
+  import swiper from '../components/swiper.vue'
   export default {
     components: {
       swiper,
@@ -23,9 +23,9 @@
     },
     methods: {
       fetchSwiper() {
-        let api = "http://112.74.56.114:8888/NetEaseMusicServer/image";
+        const URL = "http://112.74.56.114:8888/NetEaseMusicServer/image";
         this.loading = true;
-        this.$http.get(api).then(response => {
+        this.$http.get(URL).then(response => {
           this.swiperImg = response.data;
           this.loading = false;
         }, response => {
@@ -35,7 +35,3 @@
     }
   }
 </script>
-
-<style lang="stylus" rel="stylesheet/stylus">
-
-</style>

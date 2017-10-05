@@ -6,7 +6,7 @@
         <i class="icon-heart" v-show="favoFlag" @click="favoSong(song)"></i>
         <span class="songName">{{song.name}}</span>
       </div>
-  
+
       <div class="artist-section">
         <i class="icon-plus" @click="addSong(song)"></i>
         <i class="icon-play3" @click="playSong(song)"></i>
@@ -53,17 +53,10 @@
         let duration = ms / 1000;
         let min = parseInt(duration / 60);
         let sec = parseInt(duration - min * 60);
-        if (sec < 10) {
-          sec = '0' + sec;
-        }
-        return min + ':' + sec;
+        return this.specIndex(min) + ':' + this.specIndex(sec);
       },
       specIndex(i) {
-        if (i < 10) {
-          return "0" + i;
-        } else {
-          return i;
-        }
+        return i < 10 ? "0" + i : i;
       },
       playSong(song) {
         this.$store.dispatch('playSong', song);
@@ -82,26 +75,26 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-@import '../common/style/mixin.styl'
-.songs
-  mx_fc(12px,#b0b0b1);
-  font-size:12px;
-  text-align:left;
-  .song
-    mx_flex();
-    mx_hlh(45px,45px);
-    .name-section,.artist-section
-      mx_flex_item(2);
-      mx_single_ellipsis();
-      &>i
-        margin:0 12px;
-      .no,.songName
-        color:#333333;
-    .artist-section
-    .songAlbum
-      mx_flex_item(2);
-    .duration
-      mx_flex_item(1);
-    &:neh-child(odd)
-      background-color:#f4f4f6;
+  @import '../common/style/mixin.styl'
+  .songs
+    mx_fc(12px, #b0b0b1);
+    font-size: 12px;
+    text-align: left;
+    .song
+      mx_flex();
+      mx_hlh(45px, 45px);
+      .name-section, .artist-section
+        mx_flex_item(2);
+        mx_single_ellipsis();
+        & > i
+          margin: 0 12px;
+        .no, .songName
+          color: #333333;
+      .artist-section
+      .songAlbum
+        mx_flex_item(2);
+      .duration
+        mx_flex_item(1);
+      &:neh-child(odd)
+        background-color: #f4f4f6;
 </style>

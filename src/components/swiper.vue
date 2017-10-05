@@ -1,8 +1,8 @@
 <template>
   <div class="slider" @mouseover="showBtn" @mouseout="hideBtn" ref="swiper" v-if="newSwiper">
     <ul class="box" ref="box">
-      <li v-for="(img,imgIndex) in newSwiper" :class="{active:isImgActive[imgIndex]}" ref="boxItem"><img :src="img.imgurl" alt="" />
-  
+      <li v-for="(img,imgIndex) in newSwiper" :class="{active:isImgActive[imgIndex]}" ref="boxItem"><img :src="img.imgurl" alt=""/>
+
         <div class="mask"></div>
       </li>
     </ul>
@@ -18,6 +18,7 @@
 
 <script type="es6">
   import Vue from 'vue'
+
   export default {
     props: {
       swiperImg: {
@@ -53,7 +54,7 @@
         this.newSwiper.push(this.swiperImg[1]);
         this.newSwiper.unshift(this.swiperImg[this.swiperImg.length - 1]);
         var that = this;
-        Vue.nextTick(function() {
+        Vue.nextTick(function () {
           that.length = that.newSwiper.length;
           let swpierWidth = that.$refs.swiper.offsetWidth;
           that.moveDistance = swpierWidth / 2; //移动步长
@@ -67,14 +68,14 @@
           for (let i = 0; i < lis.length; i++) {
             lis[i].style.width = boxWidth / that.length + "px";
           }
-        })
+        });
         if (this.isAutoPlay) {
           this.autoPlay();
         }
       },
       autoPlay() {
         let that = this;
-        this.autoTimer = setInterval(function() {
+        this.autoTimer = setInterval(function () {
           that.next();
         }, 2000);
       },
@@ -132,57 +133,57 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-@import '../common/style/mixin.styl'
-.slider
-  position:relative;
-  margin:0 auto;
-  mx_wh(80%,185px);
-  overflow hidden
-  .dots
-    mx_posbl(0,50%);
-    transform translateX(-50%)
-    &>span
-      display inline-block
-      mx_wh(20px,3px);
-      background-color :#fff
-      margin-right 3px
-      cursor:pointer;
-      &.active
-        background-color red
-  #arr
-    #right,#left
-      mx_postl(50%,0);
-      transform translateY(-50%)
-      mx_whlh(40px,40px,40px);
-      mx_fc(30px,#fff);
-      background:#000;
-      cursor:pointer;
-      text-align:center;
-      font-weight:bold;
-      font-family:'黑体';
-      opacity:0.3;
-      mx_bd(1px, #fff)
-    #right
-      right:0;
-      left:auto;
-  .box
-    mx_posbl(0,0);
-    height:100%
-    mx_flex();
-    align-items:flex-end
-    &>li
-      float:left;
-      height:160px;
-      position:relative;
-      .mask
-        mx_wh(100%,100%);
-        mx_postl(0,0);
-        background-color:rgba(7,17,27,0.5);
-      &>img
-        mx_wh(100%,100%);
-      &.active
-        height 185px
-        transition all .5s
+  @import '../common/style/mixin.styl'
+  .slider
+    position: relative;
+    margin: 0 auto;
+    mx_wh(80%, 185px);
+    overflow hidden
+    .dots
+      mx_posbl(0, 50%);
+      transform translateX(-50%)
+      & > span
+        display inline-block
+        mx_wh(20px, 3px);
+        background-color: #fff
+        margin-right 3px
+        cursor: pointer;
+        &.active
+          background-color red
+    #arr
+      #right, #left
+        mx_postl(50%, 0);
+        transform translateY(-50%)
+        mx_whlh(40px, 40px, 40px);
+        mx_fc(30px, #fff);
+        background: #000;
+        cursor: pointer;
+        text-align: center;
+        font-weight: bold;
+        font-family: '黑体';
+        opacity: 0.3;
+        mx_bd(1px, #fff)
+      #right
+        right: 0;
+        left: auto;
+    .box
+      mx_posbl(0, 0);
+      height: 100%
+      mx_flex();
+      align-items: flex-end
+      & > li
+        float: left;
+        height: 160px;
+        position: relative;
         .mask
-          display none
+          mx_wh(100%, 100%);
+          mx_postl(0, 0);
+          background-color: rgba(7, 17, 27, 0.5);
+        & > img
+          mx_wh(100%, 100%);
+        &.active
+          height 185px
+          transition all .5s
+          .mask
+            display none
 </style>

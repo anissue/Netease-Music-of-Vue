@@ -5,7 +5,7 @@
 </template>
 
 <script type="es6">
-  import songList from '../../components/songList.vue'
+  import songList from '../components/song-list.vue'
   export default {
     data() {
       return {
@@ -30,7 +30,3 @@
     }
   }
 </script>
-
-<style lang="stylus" rel="stylesheet/stylus">
-
-</style>
